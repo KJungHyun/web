@@ -1,14 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ page import="java.sql.*"%>
+<%@ page import="project.book.BookDataBean"%>
+<%@ page import="project.book.BookDBBean"%>
+<% int department_id =0; %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="../assets/bootstrap-5.1.1/css/bootstrap.min.css" rel="stylesheet">
-        <link href="../assets/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
+        <link href="../book/assets/bootstrap-5.1.1/css/bootstrap.min.css" rel="stylesheet">
+        <link href="../book/assets/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
         <style type="text/css">
             #wrap{
                 width: 1200px;
@@ -66,7 +69,7 @@
                 float: left;
             }
             div #dept_menu{
-                background-color: antiquewhite;
+                background-color: green;
                 width: 215px;
                 height: 700px;
                 padding-left: 20px;
@@ -108,7 +111,7 @@
             </div>
             <div id="page_title">
                 <h1 id="title_text">
-                    연성북나눔
+                    홈페이지 이름
                 </h1>
             </div>
             <div id="user_profile">
@@ -133,7 +136,7 @@
                                 <a class="nav-link">전기과</a>
                               </li>
                               <li class="nav-item">
-                                <a class="nav-link">컴퓨터소프트웨어과</a>
+                                <a class="nav-link" href="list.jsp?department_id=104">컴퓨터소프트웨어과
                               </li>
                             </ul>
                         </li>
@@ -162,18 +165,15 @@
                     <button style="float: right;">버튼</button>
                 </div>
                   
-                <div class="card mb-3" style="width: 540px; height: 200px;">
+                <div class="card mb-3" style="width: 540px;">
+                   
                     <div class="row g-0">
                         <div class="col-md-4">
-                            <img src="./images/test_book.jpg" class="img-fluid rounded-start" alt="..." style="height: 200px;">
+                            <img src="..." class="img-fluid rounded-start" alt="...">
                         </div>
                         <div class="col-md-8">
                             <div class="card-body">
-                                <h5 class="card-title">손에 잡히는 데이터 통신</h5>
-                                <p class="card-text">한빛아카데미</p>
-                                <p class="card-text">임석구 저</p>
-                                <p class="card-text">2021년 01월</p>
-                                <p class="card-text">예약 0/10</p>
+                                <jsp:include page ="list.jsp?department_id=104"/>
                                 
                             </div>
                         </div>
