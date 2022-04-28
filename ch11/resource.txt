@@ -1,0 +1,22 @@
+<Resource name="jdbc/basicjsp"
+           auth="Container"
+           type="javax.sql.DataSource"
+           driverClassName="com.mysql.jdbc.Driver" 
+           username="jspid"
+           password="jsppass"
+           url="jdbc:mysql://localhost:3306/basicjsp"
+           maxWait="5000"       
+ />
+
+
+<Context path="/book" docBase="C:\_server\apache-tomcat-9.0.52\webapps\book">
+  <Resource name="jdbc/ysu"
+           auth="Container"
+           type="javax.sql.DataSource"
+           driverClassName="com.mysql.jdbc.Driver" 
+           username="ysu"
+           password="1234"
+           url="jdbc:mysql://localhost:3306/ysu"
+           maxWait="5000"       
+   />
+</Context>

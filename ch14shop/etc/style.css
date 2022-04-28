@@ -1,0 +1,20 @@
+@CHARSET "UTF-8";
+
+.header {
+    height:120px;
+    background:url('../module/logo.png') no-repeat;
+    outline:1px solid navy;
+}
+    .header .header-logon {
+        margin-left:260px;
+        outline:1px solid red;
+    }
+.menu {
+    clear:both;
+}
+.main {
+    clear:both;
+}
+.footer {
+
+}
