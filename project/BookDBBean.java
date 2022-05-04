@@ -27,8 +27,74 @@ public class BookDBBean {
         DataSource ds = (DataSource)envCtx.lookup("jdbc/ysu_project");
         return ds.getConnection();
     }
+
+    public int getArticleCount()
+             throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        int x=0;
+
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement("select count(*) from book");
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+               x= rs.getInt(1);
+			}
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+		return x;
+    }
 	
-	public List<BookDataBean> getArticles(int department_id)
+	public List<BookDataBean> getArticles(int start, int end)
+            throws Exception {
+       Connection conn = null;
+       PreparedStatement pstmt = null;
+       ResultSet rs = null;
+       List<BookDataBean> articleList=null;
+       try {
+           conn = getConnection();
+           
+           pstmt = conn.prepareStatement(
+           	"select * from book limit ?,?");
+           pstmt.setInt(1, start-1);
+           pstmt.setInt(2, end);
+           rs = pstmt.executeQuery();
+
+           if (rs.next()) {
+               articleList = new ArrayList<BookDataBean>();
+               do{
+                 BookDataBean article= new BookDataBean();
+				  article.setBook_name(rs.getString("book_name"));
+                 article.setWriter(rs.getString("writer"));
+                 article.setPublisher(rs.getString("publisher"));
+			      article.setDate(rs.getTimestamp("date"));
+				  article.setDepartment_id(rs.getInt("department_id"));
+                 
+				  
+                 articleList.add(article);
+			    }while(rs.next());
+			}
+       } catch(Exception ex) {
+           ex.printStackTrace();
+       } finally {
+           if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+           if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+           if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+       }
+		return articleList;
+   }
+
+   public List<BookDataBean> getArticles(int department_id)
             throws Exception {
        Connection conn = null;
        PreparedStatement pstmt = null;

@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="java.sql.*"%>
-<%@ page import="java.util.*"%>
-<%@ page import="project.DeptSelect"%>
-    <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -12,14 +10,10 @@
     <title>Document</title>
 </head>
 <body>
+    <jsp:include page="topNav.jsp"></jsp:include>
 
-    <%
-        String name = request.getParameter("name");
-        String select = request.getParameter("select");
-    %>
+    <div id="warp">
 
-    <h1><%=name%></h1>
-    <h1><%=select%></h1>
-
+    </div>
 </body>
 </html>
