@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
 <body>
-    <% request.setCharacterEncoding("UTF-8");
+    <% request.setCharacterEncoding("UTF-8"); 
     %>
     <%
         String dept="";
