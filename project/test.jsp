@@ -20,12 +20,19 @@
         String select = request.getParameter("select");
         String name = request.getParameter("name");
 
+        if (select==null){
+            select="1";
+        }
+        if (name==null){
+            name="";
+        }
+
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         
         List<BookDataBean> articleList = null;
             
         BookDBBean bkPro = BookDBBean.getInstance();
-        articleList = bkPro.getSearchList(select, name); 
+        articleList = bkPro.getSearchList(0, 5, select, name); 
     %>
     <h1><%=select%></h1>
     <h1><%=name%></h1>

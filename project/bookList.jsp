@@ -4,6 +4,15 @@
 <%@ page import="project.book.BookDataBean"%>
 <%@ page import="project.book.BookDBBean"%>
 <%
+
+    String select = request.getParameter("select");
+    String name = request.getParameter("name");
+    if (select==null){
+        select="1";
+    }
+    if (name==null){
+        name="";
+    }
     int pageSize = 5;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -21,16 +30,15 @@
     int count = 0;
     int number = 0;
 
-    int department_id = Integer.parseInt(request.getParameter("department_id"));
     List<BookDataBean> articleList = null; 
 
     BookDBBean bkPro = BookDBBean.getInstance();
-    count = bkPro.getArticleCount();
+    count = bkPro.getArticleCount(select, name);
     
-    articleList = bkPro.getArticles(startRow, endRow);
+    articleList = bkPro.getSearchList(startRow, endRow, select, name);
 
     if (count > 0) {
-        articleList = bkPro.getArticles(startRow, pageSize);
+        articleList = bkPro.getSearchList(startRow, pageSize, select, name);
     }
 %>
 
@@ -56,7 +64,6 @@
     </div>
 </div>
 <%}%>
-
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
 <%
@@ -74,14 +81,14 @@
         if (endPage > pageCount) endPage = pageCount;
         
         if (startPage > 10) { %>
-            <li class="page-item disabled">
+            <li class="page-item">
                 <a href="main.jsp?pageNum=<%= startPage - 10 %>" class="page-link">&laquo;</a>
             </li>
 <%      }
         
         for (int i = startPage ; i <= endPage ; i++) {  %>
             <li class="page-item active">
-                <a class="page-link" href="main.jsp?pageNum=<%= i %>"><%= i %></a>
+                <a class="page-link" href="main.jsp?pageNum=<%= i %>&select=<%=select%>&name=<%=name%>"><%= i %></a>
             </li>
 <%      }
         

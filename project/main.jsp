@@ -3,7 +3,6 @@
 <%@ page import="java.sql.*"%>
 <%@ page import="project.book.BookDataBean"%>
 <%@ page import="project.book.BookDBBean"%>
-<% int department_id =0; %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -15,18 +14,12 @@
         <link rel="stylesheet" href="style.css">
     </head>
 <body>
-    <% request.setCharacterEncoding("UTF-8"); 
-    %>
     <%
-        String dept="";
-
-        if (dept.equals("")){
-            dept=request.getParameter("dept");
-        }
+    
     %>
 
     <jsp:include page="topNav.jsp"></jsp:include>
-
+    
     <div id="wrap">
         <jsp:include page="topHeader.jsp"></jsp:include>
 
@@ -68,7 +61,7 @@
             
             <div id="book_list" >
                 <div style="margin-bottom: 15px;">
-                    <form method="get" action="test.jsp">
+                    <form method="get" action="main.jsp">
                         <select name="select">
                             <option value="1">책 제목</option>
                             <option value="2">출판사</option>
@@ -78,8 +71,7 @@
                     </form>
                     
                 </div>
-                  
-                <jsp:include page="bookList.jsp?department_id=104"></jsp:include>
+                <%@ include file="bookList.jsp"%>           
             </div>
             
     </div>
