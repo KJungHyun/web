@@ -32,7 +32,7 @@
     
 <% if(articleList==null){%>
     <div class="alert alert-danger" role="alert">
-        저장된 글이 없습니다.
+        리스트 없음
     </div>
 
     
