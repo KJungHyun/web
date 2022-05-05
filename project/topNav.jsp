@@ -15,9 +15,6 @@
           <li class="nav-item">
             <a class="nav-link" href="">당첨자게시판</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#"></a>
-          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               사용자 활동보기

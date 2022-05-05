@@ -15,7 +15,7 @@
         <link rel="stylesheet" href="style.css">
     </head>
 <body>
-    <% request.setCharacterEncoding("UTF-8");
+    <% request.setCharacterEncoding("UTF-8"); 
     %>
     <%
         String dept="";
@@ -72,14 +72,14 @@
                         <select name="select">
                             <option value="1">책 제목</option>
                             <option value="2">출판사</option>
-                        </select>
+                        </select>   
                         <input name="name">
                         <button type="submit" style="float: right;">버튼</button>
                     </form>
                     
                 </div>
                   
-                <jsp:include page="list.jsp?department_id=104"></jsp:include>
+                <jsp:include page="bookList.jsp?department_id=104"></jsp:include>
             </div>
             
     </div>
