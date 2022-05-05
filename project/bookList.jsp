@@ -26,12 +26,12 @@
 
     BookDBBean bkPro = BookDBBean.getInstance();
     count = bkPro.getArticleCount();
+    
+    articleList = bkPro.getArticles(startRow, endRow);
 
     if (count > 0) {
         articleList = bkPro.getArticles(startRow, pageSize);
     }
-    
-    articleList = bkPro.getArticles(startRow, endRow);
 %>
 
 
