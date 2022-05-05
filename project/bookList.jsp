@@ -15,7 +15,7 @@
     }
 
     int currentPage = Integer.parseInt(pageNum);
-    int startRow = (currentPage - 1) * pageSize;
+    int startRow = (currentPage - 1) * pageSize + 1;
     int endRow = currentPage * pageSize;
 
     int count = 0;
