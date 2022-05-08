@@ -1,11 +1,11 @@
-package project;
+package project.java.book;
 
 import java.sql.*;
 import java.util.*;
 import javax.naming.*;
 import javax.sql.DataSource;
 
-public class DeptSelect {
+public class deptSelect {
 
     private Connection getConnection() throws Exception {
         Context initCtx = new InitialContext();

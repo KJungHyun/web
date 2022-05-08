@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="project.book.BookDataBean"%>
-<%@ page import="project.book.BookDBBean"%>
+<%@ page import="project.java.book.bookDataBean"%>
+<%@ page import="project.java.book.bookDBBean"%>
 <%
 
     String select = request.getParameter("select");
@@ -30,9 +30,9 @@
     int count = 0;
     int number = 0;
 
-    List<BookDataBean> articleList = null; 
+    List<bookDataBean> articleList = null; 
 
-    BookDBBean bkPro = BookDBBean.getInstance();
+    bookDBBean bkPro = bookDBBean.getInstance();
     count = bkPro.getArticleCount(select, name);
     
     articleList = bkPro.getSearchList(startRow, endRow, select, name);
@@ -45,7 +45,7 @@
 
 <%  
    for (int i = 0 ; i < articleList.size() ; i++) {
-       BookDataBean article = articleList.get(i);
+       bookDataBean article = articleList.get(i);
 %>
 <div class="card mb-3" style="width: 540px;">
     <div class="row g-0">

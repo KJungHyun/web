@@ -1,9 +1,10 @@
-package project.book;
+package project.java.book;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,15 +12,15 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
-public class BookDBBean {
+public class bookDBBean {
 	
-	private static BookDBBean instance = new BookDBBean();
+	private static bookDBBean instance = new bookDBBean();
 	
-	public static BookDBBean getInstance() {
+	public static bookDBBean getInstance() {
 		return instance;
 	}
 	
-	private BookDBBean() {}
+	private bookDBBean() {}
 	
 	private Connection getConnection() throws Exception {
         Context initCtx = new InitialContext();
@@ -64,11 +65,11 @@ public class BookDBBean {
 		return x;
     }
 
-   public List<BookDataBean>getSearchList(int start, int end, String choice, String searchWord){ //검색기능
+   public List<bookDataBean>getSearchList(int start, int end, String choice, String searchWord){ //검색기능
        Connection conn = null;
        PreparedStatement pstmt = null;
        ResultSet rs = null;
-       List<BookDataBean> articleList=null;
+       List<bookDataBean> articleList=null;
 
        String sql = "SELECT * FROM book";
        String sqlWord = "";
@@ -88,9 +89,9 @@ public class BookDBBean {
            rs = pstmt.executeQuery();
 
            if (rs.next()) {
-               articleList = new ArrayList<BookDataBean>();
+               articleList = new ArrayList<bookDataBean>();
                do{
-                 BookDataBean article= new BookDataBean();
+                 bookDataBean article= new bookDataBean();
 				  article.setBook_name(rs.getString("book_name"));
                  article.setWriter(rs.getString("writer"));
                  article.setPublisher(rs.getString("publisher"));
@@ -110,5 +111,38 @@ public class BookDBBean {
        }
 		return articleList;
    }
+
+   public HashMap<Integer,String> getDept(){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        HashMap<Integer,String> map = new HashMap<Integer, String>();
+
+        String sql = "select * from department";
+
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+            
+            while(rs.next()){
+                map.put(rs.getInt("department_id"), rs.getString("d_name"));
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+       
+
+        return map;
+    }
+
+    public int dept2(){
+        return 2;
+    }
    
 }

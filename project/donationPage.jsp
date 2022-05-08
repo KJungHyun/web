@@ -1,6 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+<%@ page import="project.java.book.donationDataBean"%>
+<%@ page import="project.java.book.donationDBBean"%>
+<%
+    String id = (String)session.getAttribute("id");
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +17,7 @@
     <title>Document</title>
     <link href="../assets/bootstrap-5.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
     <jsp:include page="topNav.jsp"></jsp:include>
@@ -30,19 +37,32 @@
                         <td>학과번호</td>
                         <td>전달날짜</td>
                         <td>현재상태</td>
+                        <td>취소</td>
                     </tr>
                 </thead>
                 <tbody>
+<%  List<donationDataBean> articleList = null;
+    donationDBBean donaPro = donationDBBean.getInstance();
+
+    articleList = donaPro.getArticle(id);
+    
+    for(int i=0; i < articleList.size(); i++){
+        donationDataBean article = articleList.get(i);
+%>
                     <tr style="text-align:center">
-                        <td>명품 JAVA Programming</td>
-                        <td>0</td>
-                        <td>황기태, 김효수</td>
-                        <td>생능출판사</td>
-                        <td>2020-08-20</td>
-                        <td>104</td>
-                        <td>F</td>
+                        <td><%=article.getBook_name()%></td>
+                        <td><%=article.getBook_num()%></td>
+                        <td><%=article.getWriter()%></td>
+                        <td><%=article.getPublisher()%></td>
+                        <td><%=sdf.format(article.getDate())%></td>
+                        <td><%=article.getDepartment_id()%></td>
+                        <td><%=sdf.format(article.getP_date())%></td>
+                        <td><%=article.getStatus()%></td>
                         <td><button>취소</button></td>
                     </tr>
+<%
+                }
+%>
                 </tbody>
         </div>
     </div>

@@ -1,12 +1,13 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
-<%@ page import="project.DeptSelect"%>
-<%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="project.book.BookDataBean"%>
-<%@ page import="project.book.BookDBBean"%>
-    <!DOCTYPE html>
+<%@ page import="project.java.book.bookDataBean"%>
+<%@ page import="project.java.book.bookDBBean"%>
+<%
+        
+%>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -15,54 +16,33 @@
     <title>Document</title>
 </head>
 <body>
-
     <%
-        String select = request.getParameter("select");
-        String name = request.getParameter("name");
+        bookDBBean bk = bookDBBean.getInstance();
+        HashMap<Integer,String> map = bk.getDept();
+        TreeMap<Integer,String> tMap = new TreeMap<Integer,String>(map);
 
-        if (select==null){
-            select="1";
-        }
-        if (name==null){
-            name="";
-        }
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         
-        List<BookDataBean> articleList = null;
-            
-        BookDBBean bkPro = BookDBBean.getInstance();
-        articleList = bkPro.getSearchList(0, 5, select, name); 
-    %>
-    <h1><%=select%></h1>
-    <h1><%=name%></h1>
-    
-<% if(articleList==null){%>
-    <div class="alert alert-danger" role="alert">
-        리스트 없음
-    </div>
-
-    
-<%}else{  
-for (int i = 0 ; i < articleList.size() ; i++) {
-    BookDataBean article = articleList.get(i);
+        for(int n=0; n < 8; n++){
+            Iterator<Integer> mapiterator = tMap.keySet().iterator();
+            while(mapiterator.hasNext()){
+                int k = mapiterator.next();
 %>
-<div class="card mb-3" style="width: 540px;">
- <div class="row g-0">
-     <div class="col-md-4">
-         <img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="...">
-     </div>
-     <div class="col-md-8">
-         <div class="card-body">
-           <h5 class="card-title"><%=article.getBook_name()%></h5>
-           <p class="card-text"><%=article.getPublisher()%></p>
-           <p class="card-text"><%=article.getWriter()%></p>
-           <p class="card-text"><%=sdf.format(article.getDate())%></p>
-         </div>
-       </div>
- </div>
-</div>
-<%}}%>
-
+                
+<%
+                if(k/100==n+1){
+    %>
+    <%=k%>
+            <%=map.get(k)%>
+    <%}
+            
+        }
+        %>
+        <hr>
+        <%
+    }
+    %>
+    
+    <h1><%=map.get(102)%></h1>
+    <h1><%=100/1%></h1>
 </body>
 </html>

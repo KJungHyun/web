@@ -1,9 +1,9 @@
-package project.book;
+package project.java.book;
 
 import java.sql.Timestamp;
 
 
-public class BookDataBean {
+public class bookDataBean {
 	private String book_name;
 	private String writer;
 	private String publisher;

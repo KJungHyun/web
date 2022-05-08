@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="project.book.BookDataBean"%>
-<%@ page import="project.book.BookDBBean"%>
+<%@ page import="project.java.book.bookDataBean"%>
+<%@ page import="project.java.book.bookDBBean"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -11,7 +11,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="../assets/bootstrap-5.1.1/css/bootstrap.min.css" rel="stylesheet">
         <link href="../assets/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="css/style.css">
     </head>
 <body>
     <%
@@ -25,38 +25,7 @@
 
         <div id="y_container">
             <div id="dept_menu">
-                <nav class="nav flex-column">
-                    <ul class="nav flex-column">
-                        <li class="nav-item">
-                            <a id="test_a" class="nav-link active" aria-current="page" href="#" onclick="ulClick();">스마트ICT</a>
-                            <ul class="test_b" style="display: none;">
-                                <li class="nav-item">
-                                    <a class="nav-link active" href="main.jsp?dept=디지털전자과">디지털전자과</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link">정보통신과</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link">전기과</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="list.jsp?department_id=104">컴퓨터소프트웨어과</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" onclick="ulClick()">라이프디자인</a>
-                            <ul class="test_b" style="display: none;">
-                                <li class="nav-item">
-                                    <a class="nav-link active" aria-current="page" href="#">건축과</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">실내건축과</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-                </nav>
+                <%@ include file="mainDept.jsp"%>
             </div>
             
             <div id="book_list" >
