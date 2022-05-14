@@ -42,7 +42,6 @@
     }
 %>
 
-
 <%  
    for (int i = 0 ; i < articleList.size() ; i++) {
        bookDataBean article = articleList.get(i);

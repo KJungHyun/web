@@ -76,7 +76,7 @@ public class bookDBBean {
        if(choice.equals("1")){  //제목검색
            sqlWord=" WHERE book_name LIKE '%"+searchWord.trim()+"%' limit ?,?";
        }else if(choice.equals("2")){    //출판사검색
-           sqlWord=" WHERE writer LIKE '%"+searchWord.trim()+"%' limit ?,?";
+           sqlWord=" WHERE publisher LIKE '%"+searchWord.trim()+"%' limit ?,?";
        }
        sql = sql + sqlWord;
 
