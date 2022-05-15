@@ -3,17 +3,22 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="project.java.book.bookDataBean"%>
 <%@ page import="project.java.book.bookDBBean"%>
-<%
+<%@ page import="project.java.book.boardDataBean"%>
+<%@ page import="project.java.book.boardDBBean"%>
 
-    String select = request.getParameter("select");
-    String name = request.getParameter("name");
+<%
+    String dept = request.getParameter("dept");
+    
+    if (dept==null){
+        dept="";
+    }
     if (select==null){
         select="1";
     }
-    if (name==null){
-        name="";
-    }
-    int pageSize = 5;
+
+    
+
+    int pageSize = 10;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     String pageNum = request.getParameter("pageNum");
@@ -34,35 +39,62 @@
 
     bookDBBean bkPro = bookDBBean.getInstance();
     count = bkPro.getArticleCount(select, name);
-    
     articleList = bkPro.getSearchList(startRow, endRow, select, name);
-
-    if (count > 0) {
+    
+    
+    if(dept!=""){
+        if (count > 0) {
+        articleList = bkPro.getDeptList(startRow,pageSize,dept);
+        count = bkPro.getArticleCount(dept);
+        }
+    }else if(select!=""){
+        if (count > 0) {
         articleList = bkPro.getSearchList(startRow, pageSize, select, name);
+        }
     }
 %>
-
+<div class="row row-cols-1 row-cols-md-3 g-4" style="margin-left: 30px;">
 <%  
    for (int i = 0 ; i < articleList.size() ; i++) {
        bookDataBean article = articleList.get(i);
 %>
-<div class="card mb-3" style="width: 540px;">
+<div class="card mb-3" style="width: 450px; margin-left: 20px;">
     <div class="row g-0">
         <div class="col-md-4">
             <img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="...">
         </div>
         <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title"><%=article.getBook_name()%></h5>
-              <p class="card-text"><%=article.getPublisher()%></p>
-              <p class="card-text"><%=article.getWriter()%></p>
-              <p class="card-text"><%=sdf.format(article.getDate())%></p>
-              <p class="card-text">예약 0/10</p>
+                <h5 class="card-title"><%=article.getBook_name()%></h5>
+                <p class="card-text"><%=article.getPublisher()%></p>
+                <p class="card-text"><%=article.getWriter()%></p>
+                <p class="card-text"><%=sdf.format(article.getDate())%></p>
+                <p class="card-text">
+                <form method="get" action="bookBoardUpdatePro.jsp">
+                <%
+                    boardDBBean board = boardDBBean.getInstance();
+                    boolean check = board.getBookCheck(article.getBook_name());
+                    if(check==false){
+                %>
+                    
+                        <input name="book_name" type="hidden" value="<%=article.getBook_name()%>">
+                        <input name="select" type="hidden" value="추가">
+                        <button type="submit">추가</button>
+                    
+                <%}else{%>
+                        <input name="book_name" type="hidden" value="<%=article.getBook_name()%>">
+                        <input name="select" type="hidden" value="삭제">
+                        <button type="submit">삭제</button>
+                <%}%>
+                </form>
+                </p>
             </div>
           </div>
     </div>
 </div>
-<%}%>
+<%}
+%>
+</div>
 <nav aria-label="Page navigation example">
     <ul class="pagination justify-content-center">
 <%
@@ -73,7 +105,7 @@
         if(currentPage % 10 != 0)
            startPage = (int)(currentPage/10)*10 + 1;
         else
-           startPage = ((int)(currentPage/10)-1)*10 + 1;
+           startPage = ((int)(currentPage/10)-1)*10 + 1; 
 
         int pageBlock = 10;
         int endPage = startPage + pageBlock - 1;
@@ -81,19 +113,23 @@
         
         if (startPage > 10) { %>
             <li class="page-item">
-                <a href="main.jsp?pageNum=<%= startPage - 10 %>" class="page-link">&laquo;</a>
+                <a href="bookBoardUpdate.jsp?pageNum=<%= startPage - 10 %>" class="page-link">&laquo;</a>
             </li>
 <%      }
         
         for (int i = startPage ; i <= endPage ; i++) {  %>
             <li class="page-item active">
-                <a class="page-link" href="main.jsp?pageNum=<%= i %>&select=<%=select%>&name=<%=name%>"><%= i %></a>
+        <%  if(!dept.equals("")){%>
+                <a class="page-link" href="bookBoardUpdate.jsp?pageNum=<%= i %>&dept=<%=dept%>"><%= i %></a>
+        <%}else{%>
+                <a class="page-link" href="bookBoardUpdate.jsp?pageNum=<%= i %>&select=<%=select%>&name=<%=name%>"><%= i %></a>
+        <%}%>
             </li>
 <%      }
         
         if (endPage < pageCount) {  %>
             <li class="page-item">
-                <a href="main.jsp?pageNum=<%= startPage + 10 %>" class="page-link" href="#">&raquo;</a>
+                <a href="bookBoardUpdate.jsp?pageNum=<%= startPage + 10 %>" class="page-link" href="#">&raquo;</a>
             </li>
 <%
         }
@@ -101,3 +137,4 @@
 %>
     </ul>
 </nav>
+

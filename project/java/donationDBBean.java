@@ -28,19 +28,28 @@ public class donationDBBean {
         return ds.getConnection();
     }
 
-    public List<donationDataBean>getArticle(String s_id){ //검색기능
+    public List<donationDataBean>getArticle(String s_id){ //해당 사용자의 데이터가져오기
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<donationDataBean> articleList=null;
- 
-        String sql = "SELECT * from donation where s_id=?";
+
+        
  
       try {
             conn = getConnection();
+
+            String sql="";
+            if(s_id.equals("root")){
+                sql = "SELECT * from donation order by d_number desc";
+                pstmt = conn.prepareStatement(sql);
+            }else{
+                sql = "SELECT * from donation where s_id=?";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, s_id);
+            }
             
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, s_id);
+            
             rs = pstmt.executeQuery();
  
             if (rs.next()) {
@@ -69,5 +78,80 @@ public class donationDBBean {
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
          return articleList;
+    }
+
+    public void donationInsert(String s_id, String book_name, int book_num, String writer, String publisher, int dept, String date, String p_date, String status){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        
+        String sql = "insert into donation (s_id, book_name, book_num, writer, publisher, date, department_id, p_date, status) values(?,?,?,?,?,?,?,?,?)";
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, s_id);
+            pstmt.setString(2, book_name);
+            pstmt.setInt(3, book_num);
+            pstmt.setString(4, writer);
+            pstmt.setString(5, publisher);
+            pstmt.setString(6, date);
+            pstmt.setInt(7, dept);
+            pstmt.setString(8, p_date);
+            pstmt.setString(9, status);
+            pstmt.executeUpdate();
+            
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+    }
+
+    public void donationStatusUpdate(String d_number){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "update donation set status='T' WHERE d_number=?;";
+
+        try {
+            conn = getConnection();
+            pstmt=conn.prepareStatement(sql);
+
+            pstmt.setString(1, d_number);
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+        
+    }
+
+    public void donationDelete(String d_number){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql = "delete from donation where d_number=?";
+
+        try {
+            conn = getConnection();
+            pstmt=conn.prepareStatement(sql);
+
+            pstmt.setString(1, d_number);
+            pstmt.executeUpdate();
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+        
     }
 }

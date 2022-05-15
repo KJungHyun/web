@@ -73,3 +73,11 @@ div #book_list{
     margin-left: 150px;
     margin-top: 0px;
 }
+div #board_list{
+    float: left;
+    margin-top: 0px;
+}
+
+tr .dlabel{
+    width: 200px;
+}

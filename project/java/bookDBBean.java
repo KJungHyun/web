@@ -42,9 +42,38 @@ public class bookDBBean {
         if(choice.equals("1")){  //제목검색
             sqlWord=" WHERE book_name LIKE '%"+searchWord.trim()+"%'";
         }else if(choice.equals("2")){    //출판사검색
-            sqlWord=" WHERE writer LIKE '%"+searchWord.trim()+"%'";
+            sqlWord=" WHERE publisher LIKE '%"+searchWord.trim()+"%'";
         }
         sql = sql + sqlWord;
+ 
+      try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(sql);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+               x= rs.getInt(1);
+			}
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+		return x;
+    }
+    
+    public int getArticleCount(String dept)//학과검색카운팅
+             throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        int x=0;
+        String sql = "SELECT COUNT(*) FROM book b,department d WHERE b.department_id = d.department_id and d_name = '"+dept+"'";
+    
  
       try {
             conn = getConnection();
@@ -112,6 +141,133 @@ public class bookDBBean {
 		return articleList;
    }
 
+   public List<bookDataBean>getDeptList(int start, int end, String dept){ //검색기능
+       Connection conn = null;
+       PreparedStatement pstmt = null;
+       ResultSet rs = null;
+       List<bookDataBean> articleList=null;
+
+       String sql = "SELECT book_name,writer,publisher,date,b.department_id "+
+        "FROM book b,department d WHERE b.department_id = d.department_id and d_name = '"+dept+"' limit ?,?";
+      
+
+     try {
+           conn = getConnection();
+           
+           pstmt = conn.prepareStatement(sql);
+           pstmt.setInt(1, start-1);
+           pstmt.setInt(2, end);
+           rs = pstmt.executeQuery();
+
+           if (rs.next()) {
+               articleList = new ArrayList<bookDataBean>();
+               do{
+                 bookDataBean article= new bookDataBean();
+				  article.setBook_name(rs.getString("book_name"));
+                 article.setWriter(rs.getString("writer"));
+                 article.setPublisher(rs.getString("publisher"));
+			      article.setDate(rs.getTimestamp("date"));
+				  article.setDepartment_id(rs.getInt("department_id"));
+                 
+				  
+                 articleList.add(article);
+			    }while(rs.next());
+			}
+       } catch(Exception ex) {
+           ex.printStackTrace();
+       } finally {
+           if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+           if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+           if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+       }
+		return articleList;
+   }
+
+
+   public List<bookDataBean> getArticles(int department_id)
+            throws Exception {
+       Connection conn = null;
+       PreparedStatement pstmt = null;
+       ResultSet rs = null;
+       List<bookDataBean> articleList=null;
+       try {
+           conn = getConnection();
+           
+           pstmt = conn.prepareStatement(
+           	"select * from book where department_id = ?");
+           pstmt.setInt(1, department_id);
+           rs = pstmt.executeQuery();
+
+           if (rs.next()) {
+               articleList = new ArrayList<bookDataBean>();
+               do{
+                 bookDataBean article= new bookDataBean();
+				  article.setBook_name(rs.getString("book_name"));
+                  article.setWriter(rs.getString("writer"));
+                  article.setPublisher(rs.getString("publisher"));
+			      article.setDate(rs.getTimestamp("date"));
+				  article.setDepartment_id(rs.getInt("department_id"));
+                 
+				  
+                 articleList.add(article);
+			    }while(rs.next());
+			}
+       } catch(Exception ex) {
+           ex.printStackTrace();
+       } finally {
+           if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+           if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+           if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+       }
+		return articleList;
+   }
+
+   public List<bookDataBean>getSearchList(String choice, String searchWord){ //검색기능
+       Connection conn = null;
+       PreparedStatement pstmt = null;
+       ResultSet rs = null;
+       List<bookDataBean> articleList=null;
+
+       String sql = "SELECT * FROM book";
+       String sqlWord = "";
+       if(choice.equals("1")){  //제목검색
+           sqlWord=" WHERE book_name LIKE '%"+searchWord.trim()+"%' ";
+       }else if(choice.equals("2")){    //출판사검색
+           sqlWord=" WHERE writer LIKE '%"+searchWord.trim()+"%' ";
+       }
+       sql = sql + sqlWord;
+
+     try {
+           conn = getConnection();
+           
+           pstmt = conn.prepareStatement(sql);
+           rs = pstmt.executeQuery();
+
+           if (rs.next()) {
+               articleList = new ArrayList<bookDataBean>();
+               do{
+                 bookDataBean article= new bookDataBean();
+				  article.setBook_name(rs.getString("book_name"));
+                  article.setWriter(rs.getString("writer"));
+                  article.setPublisher(rs.getString("publisher"));
+			      article.setDate(rs.getTimestamp("date"));
+				  article.setDepartment_id(rs.getInt("department_id"));
+                 
+				  
+                 articleList.add(article);
+			    }while(rs.next());
+			}
+       } catch(Exception ex) {
+           ex.printStackTrace();
+       } finally {
+           if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+           if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+           if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+       }
+		return articleList;
+   }
+
+
    public HashMap<Integer,String> getDept(){
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -144,5 +300,6 @@ public class bookDBBean {
     public int dept2(){
         return 2;
     }
+
    
 }

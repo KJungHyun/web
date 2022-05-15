@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
-<%@ page import="project.java.book.boardDataBean"%>
-<%@ page import="project.java.book.boardDBBean"%>
 <%@ page import="project.java.book.bookDataBean"%>
 <%@ page import="project.java.book.bookDBBean"%>
 <!DOCTYPE html>
@@ -33,24 +31,23 @@
 
         <div id="y_container">
             <div id="dept_menu">
-                <%@ include file="mainDept.jsp"%>
+                <%@ include file="boardDept.jsp"%>
             </div>
-            
-            <div id="book_list" >
-                <div style="margin-bottom: 15px;">
-                    <form method="get" action="main.jsp">
+            <div style="float:left; width: 985px;">
+                <div style="margin-bottom: 15px; text-align: center;">
+                    <form method="get" action="bookBoardUpdate.jsp">
                         <select id="select" name="select" >
                             <option value="1">책 제목</option>
                             <option value="2">출판사</option>
                         </select>   
                         <input name="name" value="<%=name%>">
-                        <button type="submit" style="float:right;"">버튼</button>
+                        <button type="submit" style="text-align: right;">버튼</button>
                     </form>
-                    
                 </div>
-                <%@ include file="bookBoardList.jsp"%>           
+                <div id="board_list" >
+                    <%@ include file="bookList.jsp"%>           
+                </div>
             </div>
-            
     </div>
     
     
