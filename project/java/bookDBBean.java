@@ -222,52 +222,6 @@ public class bookDBBean {
 		return articleList;
    }
 
-   public List<bookDataBean>getSearchList(String choice, String searchWord){ //검색기능
-       Connection conn = null;
-       PreparedStatement pstmt = null;
-       ResultSet rs = null;
-       List<bookDataBean> articleList=null;
-
-       String sql = "SELECT * FROM book";
-       String sqlWord = "";
-       if(choice.equals("1")){  //제목검색
-           sqlWord=" WHERE book_name LIKE '%"+searchWord.trim()+"%' ";
-       }else if(choice.equals("2")){    //출판사검색
-           sqlWord=" WHERE writer LIKE '%"+searchWord.trim()+"%' ";
-       }
-       sql = sql + sqlWord;
-
-     try {
-           conn = getConnection();
-           
-           pstmt = conn.prepareStatement(sql);
-           rs = pstmt.executeQuery();
-
-           if (rs.next()) {
-               articleList = new ArrayList<bookDataBean>();
-               do{
-                 bookDataBean article= new bookDataBean();
-				  article.setBook_name(rs.getString("book_name"));
-                  article.setWriter(rs.getString("writer"));
-                  article.setPublisher(rs.getString("publisher"));
-			      article.setDate(rs.getTimestamp("date"));
-				  article.setDepartment_id(rs.getInt("department_id"));
-                 
-				  
-                 articleList.add(article);
-			    }while(rs.next());
-			}
-       } catch(Exception ex) {
-           ex.printStackTrace();
-       } finally {
-           if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-           if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-           if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-       }
-		return articleList;
-   }
-
-
    public HashMap<Integer,String> getDept(){
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -296,10 +250,5 @@ public class bookDBBean {
 
         return map;
     }
-
-    public int dept2(){
-        return 2;
-    }
-
    
 }

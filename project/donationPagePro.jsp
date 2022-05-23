@@ -6,6 +6,7 @@
 <%@ page import="project.java.book.donationDBBean"%>
 
 <%  
+    String id = (String)session.getAttribute("id");
     String d_number = request.getParameter("d_number");
     String select = request.getParameter("select");
     donationDBBean donaPro = donationDBBean.getInstance();
@@ -16,5 +17,5 @@
         donaPro.donationDelete(d_number);
     }
 
-
+    response.sendRedirect("donationPage.jsp");
 %>

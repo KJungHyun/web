@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
+<%@ page import="java.util.*"%>
 <%@ page import="project.java.book.boardDataBean"%>
 <%@ page import="project.java.book.boardDBBean"%>
 <%@ page import="project.java.book.bookDataBean"%>
@@ -23,6 +24,8 @@
         if (name==null){
             name="";
         }
+
+        int r_info=1;
         
     %>
 
@@ -49,6 +52,10 @@
                     
                 </div>
                 <%@ include file="bookBoardList.jsp"%>           
+            </div>
+
+            <div id="reservation">
+                <%@ include file="mainReservation.jsp"%>
             </div>
             
     </div>

@@ -37,15 +37,14 @@
     boardDBBean bkPro = boardDBBean.getInstance();
     count = bkPro.getBoardCount(select, name);
     articleList = bkPro.getBoardSearch(startRow, endRow, select, name);
-    
 
     if(dept!=""){
         if (count > 0) {
-        
+            
         }
     }else if(select!=""){
         if (count > 0) {
-        articleList = bkPro.getBoardSearch(startRow, pageSize, select, name);
+            articleList = bkPro.getBoardSearch(startRow, pageSize, select, name);
         }
     }
 %>
@@ -62,11 +61,13 @@
         </div>
         <div class="col-md-8">
             <div class="card-body">
-              <h5 class="card-title"><%=article.getBook_name()%></h5>
-              <p class="card-text"><%=article_detail.getPublisher()%></p>
-              <p class="card-text"><%=article_detail.getWriter()%></p>
-              <p class="card-text"><%=sdf.format(article_detail.getDate())%></p>
-              <p class="card-text">예약 0/10</p>
+                <h5 class="card-title"><%=article.getBook_name()%></h5>
+                <p class="card-text"><%=article_detail.getPublisher()%></p>
+                <p class="card-text"><%=article_detail.getWriter()%></p>
+                <p class="card-text"><%=sdf.format(article_detail.getDate())%></p>
+                <p class="card-text">
+                  <a href="reservationPage.jsp?book_name=<%=article.getBook_name()%>&b_id=<%=article.getB_id()%>"><button style="float:right">예약하기</button></a>
+                </p>
             </div>
           </div>
     </div>

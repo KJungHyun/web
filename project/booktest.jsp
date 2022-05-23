@@ -63,8 +63,8 @@
         <tbody>
         
 <%
-for (int i = 0 ; i < articleList.size() ; i++) {
-    when_useDataBean article = articleList.get(i);
+    for(int i=0 ; i < articleList.size() ; i++) {
+        when_useDataBean article = articleList.get(i);
 %> 
 <tr>
             <th><%=article.getId()%></th>

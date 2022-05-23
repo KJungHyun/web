@@ -33,8 +33,6 @@ public class donationDBBean {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<donationDataBean> articleList=null;
-
-        
  
       try {
             conn = getConnection();
@@ -44,7 +42,7 @@ public class donationDBBean {
                 sql = "SELECT * from donation order by d_number desc";
                 pstmt = conn.prepareStatement(sql);
             }else{
-                sql = "SELECT * from donation where s_id=?";
+                sql = "SELECT * from donation where s_id=? order by d_number desc";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, s_id);
             }
@@ -115,14 +113,49 @@ public class donationDBBean {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        String id="";
         String sql = "update donation set status='T' WHERE d_number=?;";
+        String sql2 = "select * from donation where d_number=?";
+        
+        String donation = "select * from donation_check where s_id=?";
+        String donation2 = "update donation_check set r_increase=r_increase+1 where s_id=?";
+        String donation3 = "update donation_check set r_aval=r_aval+1 where s_id=?";
+        String donation4 = "update donation_check set r_increase=0 where s_id=?";
 
         try {
             conn = getConnection();
             pstmt=conn.prepareStatement(sql);
-
             pstmt.setString(1, d_number);
             pstmt.executeUpdate();
+
+            pstmt=conn.prepareStatement(sql2);
+            pstmt.setString(1, d_number);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                id = rs.getString("s_id");
+            }
+
+            pstmt=conn.prepareStatement(donation2);
+            pstmt.setString(1, id);
+            pstmt.executeUpdate();
+
+            pstmt=conn.prepareStatement(donation);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+
+            if(rs.next()){
+                int check = rs.getInt("r_increase");
+                if(check==3){
+                    pstmt=conn.prepareStatement(donation3);
+                    pstmt.setString(1, id);
+                    pstmt.executeUpdate();
+                    
+                    pstmt=conn.prepareStatement(donation4);
+                    pstmt.setString(1, id);
+                    pstmt.executeUpdate();
+
+                }
+            }
         } catch(Exception ex) {
             ex.printStackTrace();
         } finally {

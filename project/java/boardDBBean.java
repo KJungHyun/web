@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -62,41 +63,6 @@ public class boardDBBean{
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
 		return x;
-    }
-
-	//board 목록
-	public List<boardDataBean> getBoard(int start, int end)
-             throws Exception {
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        List<boardDataBean> boardList=null;
-        try {
-            conn = getConnection();
-            
-            pstmt = conn.prepareStatement("select * from board limit ?,? ");
-            pstmt.setInt(1, start-1);
-			pstmt.setInt(2, end);
-            rs = pstmt.executeQuery();
-
-            if (rs.next()) {
-                boardList = new ArrayList<boardDataBean>(end);
-                do{
-                  boardDataBean board= new boardDataBean();
-				  board.setB_id(rs.getInt("b_id"));
-                  board.setBook_name(rs.getString("book_name"));
-				  
-                  boardList.add(board);
-			    }while(rs.next());
-			}
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-        }
-		return boardList;
     }
 
     //검색기능
@@ -203,7 +169,6 @@ public class boardDBBean{
 		return check;
     }
 
-
     //board테이블에 책추가
     public void insertBoard(String book_name)
         throws Exception {
@@ -249,5 +214,212 @@ public class boardDBBean{
                 if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
                 if (conn != null) try { conn.close(); } catch(SQLException ex) {}
             }
+    }
+
+    public int getBookCount(String book_name) throws Exception{
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        int cnt = 0;
+
+        String sql = "select count(*) from donation where status=? and book_name=?";
+        
+
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, "T");
+            pstmt.setString(2,book_name);
+            
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                cnt = rs.getInt(1);
+             }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return cnt;
+    }
+
+    public int getRound() throws Exception{
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        int round=0;
+
+        String sql = "";
+        
+
+        try{
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return 1;
+    }
+
+    public int getResCount(int b_id, int r_info) throws Exception{
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        int cnt = 0;
+
+        String sql = "select count(DISTINCT(s_id)) from reservation where b_id=? and r_info=? and status=?;";
+        
+
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, b_id);
+            pstmt.setInt(2, r_info);
+            pstmt.setString(3, "F");
+            
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                cnt = rs.getInt(1);
+             }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return cnt;
+    }
+
+    public int getDonationCount(String id){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        int cnt=0;
+        String donation_count = "select * from donation_check where s_id=?";
+
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(donation_count);
+            pstmt.setString(1, id);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                cnt = rs.getInt("r_aval");
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return cnt;
+    }
+
+    public ArrayList<String> getReservationList(String id, int r_info){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        ArrayList<String> bookList= new ArrayList<>();
+
+        String sql = "select * from board where b_id=?";
+        String reservation = "select * from reservation where s_id=? and r_info=?";
+
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(reservation);
+            pstmt.setString(1, id);
+            pstmt.setInt(2, r_info);
+            rs=pstmt.executeQuery();
+            while(rs.next()){
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1,rs.getInt("b_id"));
+                rs=pstmt.executeQuery();
+                if(rs.next()){
+                    bookList.add(rs.getString("book_name"));
+                }
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return bookList;
+    }
+
+    public boolean getDonationCheck(String id){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        boolean check = false;
+        String donation_check = "select * from donation_check where s_id=?";
+
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(donation_check);
+            pstmt.setString(1, id);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                int r_aval = rs.getInt("r_aval");
+
+                if (r_aval!=0 && r_aval>0){
+                    check=true;
+                }
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return check;
+    }
+
+    public void reservationInsert(String id, int b_id, int r_info) throws Exception{
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        String status = "F";
+        String sql = "insert into reservation (s_id, b_id, status, r_info) values(?,?,?,?)";
+
+        try{
+            conn = getConnection();
+            boolean check = getDonationCheck(id);
+            if(check){
+                String update_sql = "update donation_check set r_aval=r_aval-1 where s_id=?";
+                pstmt=conn.prepareStatement(update_sql);
+                pstmt.setString(1, id);
+                pstmt.executeUpdate();
+
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, id);
+                pstmt.setInt(2,b_id);
+                pstmt.setString(3, status);
+                pstmt.setInt(4, r_info);
+                pstmt.executeUpdate();
+            }
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
     }
 }

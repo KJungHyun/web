@@ -5,7 +5,7 @@ import java.util.*;
 import javax.naming.*;
 import javax.sql.DataSource;
 
-public class deptSelect {
+public class reservation {
 
     private Connection getConnection() throws Exception {
         Context initCtx = new InitialContext();

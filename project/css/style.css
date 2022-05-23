@@ -43,8 +43,6 @@ div #user_profile{
     background-color: brown;
     float:left;
     margin-left: 50px;
-    
-    
 }
 
 
@@ -70,7 +68,7 @@ a {
 
 div #book_list{
     float: left;
-    margin-left: 150px;
+    margin-left: 80px;
     margin-top: 0px;
 }
 div #board_list{
@@ -80,4 +78,41 @@ div #board_list{
 
 tr .dlabel{
     width: 200px;
+}
+
+div #res_container{
+    float: left;
+    margin-top: 5%;
+    width: 100%;
+    height: 70%;
+    background-color: burlywood;
+    
+}
+
+div #res_img{
+    float:left;
+    margin-top: 100px;
+    margin-left: 30px;
+    width: 350px;
+    height: 450px;
+    background-color: mediumturquoise;
+}
+
+div #res_img img{
+    width: 350px;
+    height: 450px;
+}
+
+div #res_table{
+    float: left;
+    margin-top: 100px;
+    margin-left: 60px;
+}
+
+div #reservation{
+    float:right;
+    width: 270px;
+    height: 400px;
+    margin-top: 100px;
+    background-color: aquamarine;
 }

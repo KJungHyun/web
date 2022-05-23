@@ -44,12 +44,12 @@
     
     if(dept!=""){
         if (count > 0) {
-        articleList = bkPro.getDeptList(startRow,pageSize,dept);
-        count = bkPro.getArticleCount(dept);
+            articleList = bkPro.getDeptList(startRow,pageSize,dept);
+            count = bkPro.getArticleCount(dept);
         }
     }else if(select!=""){
         if (count > 0) {
-        articleList = bkPro.getSearchList(startRow, pageSize, select, name);
+            articleList = bkPro.getSearchList(startRow, pageSize, select, name);
         }
     }
 %>
