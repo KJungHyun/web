@@ -40,14 +40,15 @@
             </div>
             
             <div id="book_list" >
-                <div style="margin-bottom: 15px;">
-                    <form method="get" action="main.jsp">
+                <div>
+                    <form method="get" action="main.jsp" style="float: right;">
                         <select id="select" name="select" >
+                            <option selected>옵션선택</option>
                             <option value="1">책 제목</option>
                             <option value="2">출판사</option>
                         </select>   
                         <input name="name" value="<%=name%>">
-                        <button type="submit" style="float:right;">버튼</button>
+                        <button type="submit" id = "radius">검색</button>
                     </form>
                     
                 </div>

@@ -11,13 +11,21 @@
     String[] deptname = {"스마트ICT", "라이프디자인", "문화콘텐츠", "사회경영", "보건복지교육",
                             "관광조리", "학사석사과정"};
 %>
+<style>
+    ul{
+        list-style: circle;
+    }
+    li{
+        margin-bottom: 1px;
+    }
+</style>
 <nav class="nav flex-column">
     <ul class="nav flex-column">
 <%
     for(int n=0; n < 7; n++){
         Iterator<Integer> mapiterator = tMap.keySet().iterator();
 %>
-        <li class="nav-item">
+        <li class="nav-item dropdown" id="nav-border">
             <a id="test_a" class="nav-link active" aria-current="page" href="#" onclick="ulClick();"><%=deptname[n]%></a>
             <ul class="test_b" style="display: none;">
 <%

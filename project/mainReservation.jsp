@@ -1,17 +1,38 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<style>
+    table {
+        width:100%;
+        border-top: 1px solid #504f4f;
+        border-collapse: collapse;
+    }
+    th{
+        border-bottom: 1px solid #504f4f;
+        border-left: 1px solid #504f4f;
+        padding: 10px;
+        background: #b6b4b4;
+    }
+    td{
+        border-bottom: 1px solid #504f4f;
+        border-left: 1px solid #504f4f;
+        padding: 10px;
+    }
 
-<table class="table table-bordered">
+    th:first-child, td:first-child{
+        border-left: none;
+    }
+</style>
+<table>
     <thead>
         <tr>
-            <td>아이디</td>
-            <td><%=id%></td>
+            <th>아이디</th>
+            <td style="text-align: right;"><%=id%></td>
         </tr>
         <tr>
-            <td>예약 가능</td>
-            <td><%=bkPro.getDonationCount(id)%></td>
+            <th>예약 가능</th>
+            <td style="text-align: right;"><%=bkPro.getDonationCount(id)%></td>
         </tr>
         <tr>
-            <td colspan="2">예약한 책 목록</td>
+            <th colspan="2">예약한 책 목록</th>
         </tr>
     </thead>
     <tbody>

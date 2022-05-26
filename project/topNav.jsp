@@ -4,7 +4,7 @@
 <% String id=(String)session.getAttribute("id"); %>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light" >
-    <div class="container-fluid" style="background-color: darkgrey;">
+    <div class="container-fluid" style="background-color: light;">
       <a class="navbar-brand" href="main.jsp">메인</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -49,5 +49,22 @@
     }%>
         </ul>
       </div>
+      <ul style="float: right; padding-top: 5px;">
+        <%=id%>
+        <a>님 환영합니다</a>
+      </ul>
+      <div id="user_profile">
+        <%
+                if(id==null){
+        %>
+                <button id = 'btn-r' type="button" onclick="location='./_login/main.jsp'">로그인</button>
+        <%
+                }else{
+        %>
+                <button id = 'btn-r' type="button" onclick="location='./_login/sessionLogout.jsp'">로그아웃</button>
+        <%
+                }
+        %>
+    </div>
     </div>
   </nav>
