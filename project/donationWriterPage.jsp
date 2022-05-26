@@ -47,23 +47,24 @@
     <div id="wrap">
         <jsp:include page="topHeader.jsp"></jsp:include>
 
-        <div id="y_container" style="padding: 50px;">
+        <div id="y_container">
             <form method="get" action="donationWriterPro.jsp">
                 <table class="table table-striped table-hover table-bordered">
                     <tbody>
                         <tr>
                             <td class="dlabel">제목<span style="color:red">(필수)</span></td>
                             <td>
-                                <div class="input-group mb-3">
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon1">책찾기</button>
+                                <div class="input-group mb-3"  style="width: 500px;">
+                                    
                                     <input type="text" class="form-control" name="book_name" placeholder="제목" aria-label="Book_name" aria-describedby="basic-addon1" required>
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon1">책찾기</button>
                                 </div>
                             </td>
                         </tr>
                         <tr>
                             <td>개정판(번호)</td>
                             <td>
-                                <div class="input-group mb-3" style="width: 150px;">
+                                <div class="input-group mb-3" style="width: 430px;">
                                     <input type="text" class="form-control" value="0" name="book_num" placeholder="개정판(번호)" aria-label="Book_num" aria-describedby="basic-addon1">
                                 </div>
                             </td>
@@ -124,7 +125,9 @@
                         </tr>
                     </tbody>
                 </table>
-                <button type="submit">작성하기</button>
+                <div class="btn-submit">
+                    <button type="submit">작성하기</button>
+                </div>
             </form>
         </div>
     </div>
