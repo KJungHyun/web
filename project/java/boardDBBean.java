@@ -109,6 +109,70 @@ public class boardDBBean{
 		return boardList;
    }
 
+   public int getBoardDeptCount(int dept){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        int cnt = 0;
+        
+        String sql = "select count(*) from board, book where board.book_name=book.book_name and book.department_id=?";
+        try {
+            conn = getConnection();
+            
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setInt(1, dept);
+            rs = pstmt.executeQuery();
+
+            if(rs.next()){
+                cnt=rs.getInt(1);
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+        return cnt;
+   }
+
+   public List<boardDataBean>getBoardDeptSearch(int start, int end, int dept){ 
+    Connection conn = null;
+    PreparedStatement pstmt = null;
+    ResultSet rs = null;
+    List<boardDataBean> boardList=null;
+
+    String sql = "select b_id, board.book_name from board, book where board.book_name=book.book_name and book.department_id=? limit ?,?";
+   
+  try {
+        conn = getConnection();
+        
+        pstmt = conn.prepareStatement(sql);
+        pstmt.setInt(1, dept);
+        pstmt.setInt(2, start-1);
+        pstmt.setInt(3, end);
+        rs = pstmt.executeQuery();
+
+        if (rs.next()) {
+            boardList = new ArrayList<boardDataBean>();
+            do{
+               boardDataBean board= new boardDataBean();
+               board.setB_id(rs.getInt("b_id"));
+               board.setBook_name(rs.getString("book_name"));
+
+               boardList.add(board);
+             }while(rs.next());
+         }
+    } catch(Exception ex) {
+        ex.printStackTrace();
+    } finally {
+        if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+        if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+        if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+    }
+     return boardList;
+}
+
    public bookDataBean getBoardDetail(String book_name)
              throws Exception {
         Connection conn = null;

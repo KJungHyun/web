@@ -70,6 +70,7 @@ div #book_list{
     float: left;
     margin-left: 80px;
     margin-top: 0px;
+    width: 570px;
 }
 div #board_list{
     float: left;

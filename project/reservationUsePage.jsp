@@ -17,7 +17,7 @@
         <link href="../assets/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
         <link rel="stylesheet" href="css/style.css">
     </head>
-<body onload="selectBtn();">
+    <body onload="selectBtn();">
     <%
         String select = request.getParameter("select");
         String name=request.getParameter("name");
@@ -25,8 +25,7 @@
             name="";
         }
 
-        int r_info=1;
-        int deptSelectNum=1;
+        int deptSelectNum=3;
     %>
 
     <jsp:include page="topNav.jsp"></jsp:include>
@@ -38,29 +37,8 @@
             <div id="dept_menu">
                 <%@ include file="mainDept.jsp"%>
             </div>
-            
-            <div id="book_list" >
-                <div style="margin-bottom: 15px;">
-                    <form method="get" action="main.jsp">
-                        <select id="select" name="select" >
-                            <option value="1">책 제목</option>
-                            <option value="2">출판사</option>
-                        </select>   
-                        <input name="name" value="<%=name%>">
-                        <button type="submit" style="float:right;">버튼</button>
-                    </form>
-                    
-                </div>
-                <%@ include file="bookBoardList.jsp"%>           
-            </div>
-
-            <div id="reservation">
-                <%@ include file="mainReservation.jsp"%>
-            </div>
-            
+        </div>
     </div>
-    
-    
 </body>
 </html>
 

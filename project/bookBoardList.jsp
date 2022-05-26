@@ -40,7 +40,9 @@
 
     if(dept!=""){
         if (count > 0) {
-            
+            int deptNum = Integer.parseInt(dept);
+            count = bkPro.getBoardDeptCount(deptNum);
+            articleList = bkPro.getBoardDeptSearch(startRow, pageSize, deptNum);
         }
     }else if(select!=""){
         if (count > 0) {
@@ -48,8 +50,8 @@
         }
     }
 %>
-
-<%  
+<% 
+if(count!=0){
    for (int i = 0 ; i < articleList.size() ; i++) {
        boardDataBean article = articleList.get(i);
        bookDataBean article_detail = bkPro.getBoardDetail(article.getBook_name());
@@ -112,7 +114,10 @@
 <%
         }
     }
+}else{
 %>
+    <h1 style="margin-top: 130px; margin-left: 50px;">검색 내용이 없습니다.</h1>
+<%}%>
     </ul>
 </nav>
 

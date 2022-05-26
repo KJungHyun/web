@@ -9,7 +9,12 @@
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     if (id==null || id.equals("")){
-        response.sendRedirect("main.jsp");
+%>
+    <script>
+        alert("로그인을 하셔야 이용가능합니다.");
+        history.back();
+    </script>
+<%
     }else{
 %>
 <!DOCTYPE html>

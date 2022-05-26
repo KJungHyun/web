@@ -24,11 +24,20 @@
             while(mapiterator.hasNext()){
                 int k = mapiterator.next();
                 if(k/100==n+1){
+                    if(deptSelectNum==1){
 %>
                 <li class="nav-item">
-                    <a class="nav-link active" href="main.jsp?dept=<%=map.get(k)%>"><%=map.get(k)%></a>
-                </li>
-<%}}%>
+                    <a class="nav-link active" href="main.jsp?dept=<%=k%>"><%=map.get(k)%></a>
+                </li>           
+<%}else if(deptSelectNum==2){%>
+    <li class="nav-item">
+        <a class="nav-link active" href="bookBoardUpdate.jsp?dept=<%=map.get(k)%>"><%=map.get(k)%></a>
+    </li>   
+<%}else if(deptSelectNum==3){%>
+    <li class="nav-item">
+        <a class="nav-link active" href="reservationDept.jsp?dept=<%=k%>"><%=map.get(k)%></a>
+    </li>   
+<%}}}%>
             </ul>
         </li>
 <%}%>

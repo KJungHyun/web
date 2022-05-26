@@ -21,7 +21,8 @@
         if (name==null){
             name="";
         }
-        
+      
+        int deptSelectNum = 2;
     %>
 
     <jsp:include page="topNav.jsp"></jsp:include>
@@ -31,7 +32,7 @@
 
         <div id="y_container">
             <div id="dept_menu">
-                <%@ include file="boardDept.jsp"%>
+                <%@ include file="mainDept.jsp"%>
             </div>
             <div style="float:left; width: 985px;">
                 <div style="margin-bottom: 15px; text-align: center;">
