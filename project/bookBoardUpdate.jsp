@@ -34,10 +34,11 @@
             <div id="dept_menu">
                 <%@ include file="mainDept.jsp"%>
             </div>
-            <div style="float:left; width: 985px;">
+            <div style="float:left; width: 1050px;">
                 <div style="margin-bottom: 15px; text-align: center;">
                     <form method="get" action="bookBoardUpdate.jsp">
                         <select id="select" name="select" >
+                            <option selected>옵션선택</option>
                             <option value="1">책 제목</option>
                             <option value="2">출판사</option>
                         </select>   

@@ -1,5 +1,5 @@
 #wrap{
-    width: 1200px;
+    width: 1300px;
     height: 1700px;
     margin: 0px auto; /*가운데 정렬*/
 }
@@ -50,7 +50,7 @@ div #y_container{
 div #dept_menu{
     width: 215px;
     height: 700px;
-    padding-left: 20px;
+    padding-left: 0px;
     margin-top: 40px;
     float: left;
 }
@@ -61,7 +61,7 @@ a {
 
 div #book_list{
     float: left;
-    margin-left: 30px;
+    margin-left: 90px;
     margin-top: 10px;
 }
 div #board_list{
