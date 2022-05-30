@@ -28,26 +28,40 @@ public class donationDBBean {
         return ds.getConnection();
     }
 
-    public List<donationDataBean>getArticle(String s_id){ //해당 사용자의 데이터가져오기
+    public List<donationDataBean>getArticle(int start, int end, String s_id, String choice, String searchWord){ //해당 사용자의 데이터가져오기
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
+        String select=null;
         List<donationDataBean> articleList=null;
  
       try {
             conn = getConnection();
 
+            if (choice.equals("1")){
+                select = "book_name";
+            }else if(choice.equals("2")){
+                select = "publisher";
+            }else if(choice.equals("3")){
+                select = "department_id";
+                searchWord=getDeptNum(searchWord);
+            }
+            System.out.println(searchWord);
+
             String sql="";
             if(s_id.equals("root")){
-                sql = "SELECT * from donation order by d_number desc";
+                sql = "SELECT * from donation where "+select+" like '%"+ searchWord.trim() +"%' order by d_number desc limit ?, ?";
                 pstmt = conn.prepareStatement(sql);
+                pstmt.setInt(1, start-1);
+                pstmt.setInt(2, end);
             }else{
-                sql = "SELECT * from donation where s_id=? order by d_number desc";
+                sql = "SELECT * from donation where s_id=? and "+select+" like '%"+ searchWord.trim() +"%' order by d_number desc limit ?, ?";
                 pstmt = conn.prepareStatement(sql);
                 pstmt.setString(1, s_id);
+                pstmt.setInt(2, start-1);
+                pstmt.setInt(3, end);
             }
-            
-            
+
             rs = pstmt.executeQuery();
  
             if (rs.next()) {
@@ -77,6 +91,110 @@ public class donationDBBean {
         }
          return articleList;
     }
+
+    public int getArticleCount(String s_id, String choice, String searchWord)
+             throws Exception {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String select=null;
+
+        int x=0;
+        String sql = "";
+
+      try {
+            conn = getConnection();
+
+            if(choice.equals("1")){  //제목검색
+                select="book_name";
+            }else if(choice.equals("2")){    //출판사검색
+                select="publisher";
+            }else if(choice.equals("3")){  // 학과명
+                select="department_id";
+                searchWord=getDeptNum(searchWord);
+            }
+            System.out.println(searchWord);
+
+            if(s_id.equals("root")){
+                sql = "SELECT count(*) from donation where "+select+" like '%"+ searchWord.trim() +"%' order by d_number desc ";
+                pstmt = conn.prepareStatement(sql);
+            }else{
+                sql = "SELECT count(*) from donation WHERE s_id=? and "+select+" LIKE '%"+searchWord.trim()+"%' order by d_number desc";
+                pstmt = conn.prepareStatement(sql);
+                pstmt.setString(1, s_id);
+            }
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+               x= rs.getInt(1);
+			}
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+		return x;
+    }
+
+    public String getDeptName(int deptNum){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String deptName=null;
+
+        String sql = "select * from department where department_id=?";
+
+      try {
+            conn = getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setInt(1, deptNum);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                deptName=rs.getString("d_name");
+            }
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return deptName;
+    }
+
+    public String getDeptNum(String deptName){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String deptNum=null;
+
+        String sql = "select * from department where d_name like '%"+deptName.trim()+"%' limit 1";
+
+      try {
+            conn = getConnection();
+            pstmt=conn.prepareStatement(sql);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                deptNum=rs.getString("department_id");
+            }
+
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return deptNum;
+    }
+
+
 
     public void donationInsert(String s_id, String book_name, int book_num, String writer, String publisher, int dept, String date, String p_date, String status){
         Connection conn = null;

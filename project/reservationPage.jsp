@@ -20,7 +20,6 @@
     int resCount = boardPro.getResCount(b_id, r_info);
 
     bookDataBean article = boardPro.getBoardDetail(book_name);
-
     boardDBBean bkPro = boardDBBean.getInstance();
 %>
 <!DOCTYPE html>

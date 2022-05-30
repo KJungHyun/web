@@ -7,6 +7,6 @@
 
 <div id="header">
     <div id="page_title">
-        <h1 id="title_text">연성북나눔</h1>
+        <h1 id="title_text">북나눔</h1>
     </div>
 </div>

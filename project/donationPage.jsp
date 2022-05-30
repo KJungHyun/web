@@ -7,6 +7,29 @@
 <%
     String id = (String)session.getAttribute("id");
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    String name = request.getParameter("name");
+    String select = request.getParameter("select");
+
+    int pageSize = 15;
+    String pageNum = request.getParameter("pageNum");
+
+    if (pageNum == null) {
+        pageNum = "1";
+    }
+
+    int currentPage = Integer.parseInt(pageNum);
+    int startRow = (currentPage - 1) * pageSize + 1;
+    int endRow = currentPage * pageSize;
+
+    int count = 0;
+    int number = 0;
+
+    if (name==null || id.equals("")){
+        name = "";
+    }
+    if(select==null || select.equals("")){
+        select="1";
+    }
 
     if (id==null || id.equals("")){
 %>
@@ -16,6 +39,14 @@
     </script>
 <%
     }else{
+        List<donationDataBean> articleList = null;
+        donationDBBean donationPro = donationDBBean.getInstance();
+        count = donationPro.getArticleCount(id, select, name);
+        articleList = donationPro.getArticle(startRow, endRow, id, select, name);
+    
+        if (count > 0) {
+            articleList = donationPro.getArticle(startRow, pageSize, id, select, name);
+        }
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -29,11 +60,23 @@
     <link href="../assets/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body onload="selectBtn();">
     <jsp:include page="topNav.jsp"></jsp:include>
 
     <div id="wrap">
         <jsp:include page="topHeader.jsp"></jsp:include>
+
+        <div>
+            <form method="get" action="donationPage.jsp" style="float: right;">
+                <select id="select" name="select" >
+                    <option value="1">책 제목</option>
+                    <option value="2">출판사</option>
+                    <option value="3">학과명</option>
+                </select>   
+                <input name="name" value="<%=name%>">
+                <button type="submit" id = "radius">검색</button>
+            </form>
+        </div>
 
         <div id="y_container">
             <table class="table table-striped">
@@ -54,51 +97,24 @@
                 <%}%>
                     </tr>
                 </thead>
-                <tbody>
-<%  List<donationDataBean> articleList = null;
-    donationDBBean donaPro = donationDBBean.getInstance();
-
-    articleList = donaPro.getArticle(id);
-    
-    for(int i=0; i < articleList.size(); i++){
-        donationDataBean article = articleList.get(i);
-%>              
-                    <tr style="text-align:center">
-                        <td><img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="..."></td>
-                        <td><%=article.getBook_name()%></td>
-                        <td><%=article.getBook_num()%></td>
-                        <td><%=article.getWriter()%></td>
-                        <td><%=article.getPublisher()%></td>
-                        <td><%=sdf.format(article.getDate())%></td>
-                        <td><%=article.getDepartment_id()%></td>
-                        <td><%=sdf.format(article.getP_date())%></td>
-                        <td><%=article.getStatus()%></td>
-            <% if(article.getStatus().equals("F")){%>
-                        <td>
-                            <form method="get" action="donationPagePro.jsp">
-                                <input type="hidden" name="d_number" value="<%=article.getD_number()%>">
-                                <input type="hidden" name="select" value="취소">
-                                <button type="submit">취소</button>
-                            </form>
-                        </td>
-                        <% if(id.equals("root")){%>
-                            <td>
-                                <form method="get" action="donationPagePro.jsp">
-                                    <input type="hidden" name="d_number" value="<%=article.getD_number()%>">
-                                    <input type="hidden" name="select" value="수령">
-                                    <button type="submit">수령</button>
-                                </form>
-                            </td>
-                        <%}%>
-            <% } %> 
-                    </tr>
-<%
-                }
-%>
-                </tbody>
+                <% if(count!=0){ %>
+                    <%@ include file="donationList.jsp"%>
+                <%}else{%>
+                    <td colspan="11" style="margin-top: 130px; margin-left: 50px; text-align: center;">검색 내용이 없습니다.</td>
+                <%}%>
+                
         </div>
     </div>
+
 </body>
 </html>
 
 <%}%>
+
+<script>
+    function selectBtn(){
+        var select = document.getElementById("select");
+        var selectNum = '<%=select%>';
+        select.options[selectNum-1].selected=true;
+    }
+</script>

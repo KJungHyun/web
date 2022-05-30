@@ -6,7 +6,7 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light" >
     <div class="container-fluid" style="background-color: light;">
       <a class="navbar-brand" href="main.jsp">
-        <img id="header_logo" src="images/logo.png" alt="안잡힘">
+        <img id="header_logo" src="images/test1.png" alt="안잡힘">
       </a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -27,7 +27,7 @@
               예약
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="reservationUsePage.jsp">예약 내역</a></li>
+              <li><a class="dropdown-item" href="reservationHistoryPage.jsp">예약 내역</a></li>
             </ul>
           </li>
     <%
@@ -40,9 +40,8 @@
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="bookBoardUpdate.jsp">책 게시판</a></li>
-              <li><a class="dropdown-item" href="#">예약 당첨자 추첨</a></li>
               <li><hr class="dropdown-divider"></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
+              <li><a class="dropdown-item" href="roundPage.jsp">회차보기</a></li>
             </ul>
           </li>
       <%}
