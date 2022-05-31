@@ -27,7 +27,7 @@
               예약
             </a>
             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="reservationHistoryPage.jsp">예약 내역</a></li>
+              <li><a class="dropdown-item" href="reservationDrawPage.jsp">예약 내역</a></li>
             </ul>
           </li>
     <%

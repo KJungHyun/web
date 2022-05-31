@@ -109,8 +109,8 @@
                     <tr style="text-align:center">
                         <td>이미지</td>
                         <td>책 제목</td>
-                        <td>책 수량</td>
-                        <td>예약자 수</td>
+                        <td>현재상황</td>
+                        <td>회차정보</td>
                     </tr>
                 </thead>
                 <% if(count!=0){ %>

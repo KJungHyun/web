@@ -39,7 +39,7 @@
     </script>
 <%
     }else{
-        count = roundPro.getArticleCount(id, r_info);
+        count = roundPro.getRoundNum();
         articleList = roundPro.getSearchList(startRow, endRow, id, r_info);
         
     
