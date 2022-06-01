@@ -53,9 +53,19 @@
     }%>
         </ul>
       </div>
-      <ul style="float: right; padding-top: 5px;">
+      <ul style="float: right; padding-top: 5px; margin-right: 10px;">
+      <%
+        if(id==null){
+      %>
+        <a>로그인을 해주세요!</a>
+      <%
+        }else{
+      %>
         <%=id%>
-        <a>님 환영합니다</a>
+        <a>님 환영합니다!</a>
+      <%
+        }
+      %>
       </ul>
       <div id="user_profile">
         <%

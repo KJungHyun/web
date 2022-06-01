@@ -79,12 +79,11 @@
         </div>
 
         <div id="y_container">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr style="text-align:center">
                         <td>이미지</td>
-                        <td >책 제목</td>
-                        <td>개정판(번호)</td>
+                        <td style="width:270px;">책 제목</td>
                         <td>저자</td>
                         <td>출판사</td>
                         <td>출시년도</td>
