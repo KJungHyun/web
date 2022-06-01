@@ -31,7 +31,7 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a href="when_useList.jsp" target="_blank">전학기 전공책 사용내용</a>
+            <a href="when_useList.jsp" target="_blank">전학기 전공책 사용기록</a>
           </li>
     <%
     try{
