@@ -69,7 +69,7 @@
                         </tbody>
                         <tfoot>
                             <td colspan="2">
-                                <a href="reservationPagePro.jsp?b_id=<%=b_id%>" style="float:right"><button >예약하기</button></a>
+                                <a href="reservationPagePro.jsp?b_id=<%=b_id%>" style="float:right"><button style="border-radius: 5px;">예약하기</button></a>
                                 <select style="float:right">
                                     <option>1회</option>
                                 </select>

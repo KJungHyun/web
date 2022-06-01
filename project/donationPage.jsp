@@ -63,7 +63,7 @@
 <body onload="selectBtn();">
     <jsp:include page="topNav.jsp"></jsp:include>
 
-    <div id="wrap">
+    <div id="wrap1">
         <jsp:include page="topHeader.jsp"></jsp:include>
 
         <div>
@@ -79,7 +79,7 @@
         </div>
 
         <div id="y_container">
-            <table class="table table-striped">
+            <table class="table table-striped table-hover">
                 <thead>
                     <tr style="text-align:center">
                         <td>이미지</td>

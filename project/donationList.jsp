@@ -10,7 +10,7 @@
         donationDataBean article = articleList.get(i);
 %>              
             <tr style="text-align:center">
-                <td><img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="..." style="width:200px; height:200px"></td>
+                <td><img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="..." style="width:160px; height:200px"></td>
                 <td><%=article.getBook_name()%></td>
                 <td><%=article.getBook_num()%></td>
                 <td><%=article.getWriter()%></td>
@@ -21,7 +21,7 @@
                 <td>
                     <%=article.getStatus()%>
                 </td>
-        <% if(article.getStatus().equals("F")){%>
+            <% if(article.getStatus().equals("F")){%>
                 <td>
                     <form method="get" action="donationPagePro.jsp">
                         <input type="hidden" name="d_number" value="<%=article.getD_number()%>">
@@ -37,8 +37,13 @@
                         <button type="submit">수령</button>
                     </form>
                 </td>
+                <%}else{%>
+                    <td></td>
                 <%}%>
-            <% } %> 
+            <% }else if(article.getStatus().equals("T") && id.equals("root")){ %>
+                <td></td>
+                <td></td>
+            <%}%>
             </tr>
     <%}%>
         </tbody>
