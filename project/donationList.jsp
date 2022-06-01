@@ -11,8 +11,7 @@
 %>              
             <tr style="text-align:center">
                 <td><img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="..." style="width:160px; height:200px"></td>
-                <td><%=article.getBook_name()%></td>
-                <td><%=article.getBook_num()%></td>
+                <td title="개정판(번호):<%=article.getBook_num()%>"><%=article.getBook_name()%></td>
                 <td><%=article.getWriter()%></td>
                 <td><%=article.getPublisher()%></td>
                 <td><%=sdf.format(article.getDate())%></td>

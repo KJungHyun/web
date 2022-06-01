@@ -63,7 +63,7 @@
 <body onload="selectBtn();">
     <jsp:include page="topNav.jsp"></jsp:include>
 
-    <div id="wrap1">
+    <div id="wrap">
         <jsp:include page="topHeader.jsp"></jsp:include>
 
         <div>
@@ -83,8 +83,7 @@
                 <thead>
                     <tr style="text-align:center">
                         <td>이미지</td>
-                        <td >책 제목</td>
-                        <td>개정판(번호)</td>
+                        <td style="width:270px;">책 제목</td>
                         <td>저자</td>
                         <td>출판사</td>
                         <td>출시년도</td>
