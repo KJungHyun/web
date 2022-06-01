@@ -30,6 +30,9 @@
               <li><a class="dropdown-item" href="reservationDrawPage.jsp">예약 내역</a></li>
             </ul>
           </li>
+          <li class="nav-item dropdown">
+            <a href="when_useList.jsp" target="_blank">전학기 전공책 사용내용</a>
+          </li>
     <%
     try{
           if(id.equals("root") || id=="root"){
