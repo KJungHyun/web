@@ -20,7 +20,7 @@
                 <td>
                     <%=article.getStatus()%>
                 </td>
-            <% if(article.getStatus().equals("F")){%>
+            <% if(article.getStatus().equals("C")){%>
                 <td>
                     <form method="get" action="donationPagePro.jsp">
                         <input type="hidden" name="d_number" value="<%=article.getD_number()%>">

@@ -6,7 +6,7 @@
 %>
 
 <div id="header">
-    <div id="page_title">
+    <div id="page_title">        
         <h1 id="title_text">북나눔</h1>
     </div>
 </div>

@@ -17,17 +17,7 @@
     String date = df.format(df.parse(request.getParameter("date")));
     String p_date =  df.format(df.parse(request.getParameter("p_date")));
     String status = "F";
-
-
-    System.out.println(id);
-    System.out.println(book_name);
-    System.out.println(book_num);
-    System.out.println(writer);
-    System.out.println(publisher);
-    System.out.println(dept);
-    System.out.println(date);
-    System.out.println(p_date);
-    System.out.println(status);
+    
     donaPro.donationInsert(id, book_name, book_num, writer, publisher, dept, date, p_date, status);
     response.sendRedirect("donationPage.jsp");
 %>

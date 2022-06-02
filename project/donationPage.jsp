@@ -69,6 +69,7 @@
         <div>
             <form method="get" action="donationPage.jsp" style="float: right;">
                 <select id="select" name="select" >
+                    <optiom value="all">전체보기</optiom>
                     <option value="1">책 제목</option>
                     <option value="2">출판사</option>
                     <option value="3">학과명</option>

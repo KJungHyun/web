@@ -13,7 +13,7 @@
         roundDBBean roundPro = roundDBBean.getInstance();
 
     if(r_info==null || r_info.equals("")){
-        r_info=Integer.toString(roundPro.getRoundNum());
+        r_info="all";
     }
     
 
@@ -40,11 +40,10 @@
 <%
     }else{
         count = roundPro.getRoundNum();
-        articleList = roundPro.getSearchList(startRow, endRow, id, r_info);
-        
+        articleList = roundPro.getSearchList(startRow, endRow, r_info);
     
         if (count > 0) {
-            articleList = roundPro.getSearchList(startRow, pageSize, id, r_info);
+            articleList = roundPro.getSearchList(startRow, pageSize, r_info);
         }
 %>
 <!DOCTYPE html>
@@ -100,8 +99,8 @@
                     %>    
                     <tr style="text-align: center;">
                         <td><%=article.getR_info()%></td>
-                        <td><%=article.getStart_Date()%></td>
-                        <td><%=article.getEnd_Date()%></td>
+                        <td><%=sdf.format(article.getStart_date())%></td>
+                        <td><%=sdf.format(article.getEnd_date())%></td>
                         <td>
                             <% if(article.getStatus().equals("T")){%>
                                 진행중
@@ -110,7 +109,15 @@
                             <%}%>
                         </td>
                         <% if (id.equals("root")){%>
-                            <td><button>추첨하기</button></td>
+                            <td>
+                                <form method="post" action="roundPagePro.jsp">
+                                    <input name="r_info" type="hidden" value="<%=article.getR_info()%>">
+                                    <input name="start_date" type="hidden" value="<%=article.getStart_date()%>">
+                                    <input name="end_date" type="hidden" value="<%=article.getEnd_date()%>">
+                                    <input id="status" name="status" type="hidden" value="<%=article.getStatus()%>">
+                                    <button type="submit" onclick="return drawBtn();">추첨하기</button>
+                                </form>
+                            </td>
                         <%}%>
                     </tr>
                     <%}%>
@@ -134,5 +141,18 @@
         var select = document.getElementById("select");
         var selectNum = '<%=r_info%>';
         select.options[selectNum].selected=true;
+    }
+
+    function drawBtn(){
+        var status = document.getElementById("status").value;
+        var returnStatus = false;
+        if(status=="T"){
+            if(confirm("정말 추첨하시겠습니까?")){
+                returnStatus = true;
+            }
+        }else{
+            alert("이미 추첨을 완료했습니다.");
+        }
+        return returnStatus;
     }
 </script>

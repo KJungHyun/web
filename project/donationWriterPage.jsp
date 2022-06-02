@@ -65,7 +65,7 @@
                             <td>개정판(번호)</td>
                             <td>
                                 <div class="input-group mb-3" style="width: 430px;">
-                                    <input type="text" class="form-control" value="0" name="book_num" placeholder="개정판(번호)" aria-label="Book_num" aria-describedby="basic-addon1">
+                                    <input type="text" class="form-control" value="0" name="book_num" placeholder="개정판(번호) 없으면 0" aria-label="Book_num" aria-describedby="basic-addon1">
                                 </div>
                             </td>
                         </tr>

@@ -173,3 +173,60 @@ public class when_useDBBean {
                 
 }
 
+
+if (s_idCnt<=bookCnt){
+    sql="select DISTINCT(s_id)from reservation where b_id=? and r_info=?";
+    pstmt=conn.prepareStatement(sql);
+    pstmt.setInt(1, bookId);
+    pstmt.setString(2, r_info);
+    rs=pstmt.executeQuery();
+    while(rs.next()){
+        winId = rs.getString(1);
+        book_name = getB_idForBookName(bookId);
+        reservationWinIdUpdate(bookId, winId, "T");
+        System.out.println("1..처리중.. : " + book_name);
+    }
+    bookStockUpdate(book_name, s_idCnt);
+    System.out.println("신청자보다 재고가 많아서 바로 처리됨 : "+bookId);
+}else{
+    System.out.println("신청자보다 재고가 적어서 처리중 : "+bookId);
+    sql="select * from reservation where b_id=? and r_info=?";
+    pstmt=conn.prepareStatement(sql);
+    pstmt.setInt(1, bookId);
+    pstmt.setString(2, r_info);
+    rs=pstmt.executeQuery();
+
+    while(rs.next()){
+        ids.add(rs.getString("s_id"));
+    }
+    System.out.println("-----------------------------");
+    System.out.println("리스트에 id 추가 완료");
+    System.out.println(ids);
+    for(int i=0; i < bookCnt; i++){
+        cnt = 0;
+        winId = ids.get(rn.nextInt(ids.size()));
+        System.out.println("추첨중.... : "+winId);
+        for(int j=0; j < ids.size(); j++){
+            if(ids.get(j).equals(winId)){
+                cnt++;
+            }
+        }
+        for(int j=0; j < cnt; j++){
+            ids.remove(winId);
+        }
+        System.out.println("삭제완료.... : "+winId);
+        reservationWinIdUpdate(bookId, winId, "T");
+    }
+    book_name = getB_idForBookName(bookId);
+    bookStockUpdate(book_name, s_idCnt);
+    System.out.println(ids);
+    System.out.println("-----------------------------");
+    System.out.println("예약 횟수 반환중.....");
+    for(int i=0; i < ids.size(); i++){
+        cnt = 1;
+        loseId = ids.get(i);
+        reservationWinIdUpdate(bookId, loseId, "F");
+        donationCheckReturn(loseId, cnt);
+    }
+    System.out.println("반환 완료.");
+}

@@ -1,9 +1,11 @@
 package project.java.book;
 
+import java.sql.Timestamp;
+
 public class roundDataBean {
     private int r_info;
-	private String start_date;
-	private String end_date;
+	private Timestamp start_date;
+	private Timestamp end_date;
     private String status;
 
     public int getR_info() {
@@ -13,17 +15,17 @@ public class roundDataBean {
 		this.r_info = r_info;
 	}
 
-    public String getStart_date() {
+    public Timestamp getStart_date() {
 		return start_date;
 	}
-	public void setStart_date(String start_date) {
+	public void setStart_date(Timestamp start_date) {
 		this.start_date = start_date;
 	}
 
-    public String getEnd_date() {
+    public Timestamp getEnd_date() {
 		return end_date;
 	}
-	public void setEnd_date(String end_date) {
+	public void setEnd_date(Timestamp end_date) {
 		this.end_date = end_date;
 	}
     

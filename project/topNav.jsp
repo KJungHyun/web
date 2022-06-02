@@ -31,7 +31,14 @@
             </ul>
           </li>
           <li class="nav-item dropdown">
-            <a href="when_useList.jsp" target="_blank">전학기 전공책 사용기록</a>
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              교재정보
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="when_useList.jsp" target="_blank">전학기 전공책 사용기록</a>
+              </li>
+            </ul>
           </li>
     <%
     try{

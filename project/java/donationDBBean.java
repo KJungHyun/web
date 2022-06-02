@@ -232,7 +232,7 @@ public class donationDBBean {
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String id="";
-        String sql = "update donation set status='T' WHERE d_number=?;";
+        String sql = "update donation set status='P' WHERE d_number=?;";
         String sql2 = "select * from donation where d_number=?";
         
         String donation = "select * from donation_check where s_id=?";

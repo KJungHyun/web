@@ -292,7 +292,7 @@ public class boardDBBean{
         try{
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, "T");
+            pstmt.setString(1, "P");
             pstmt.setString(2,book_name);
             
             rs = pstmt.executeQuery();
@@ -346,7 +346,7 @@ public class boardDBBean{
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, b_id);
             pstmt.setInt(2, r_info);
-            pstmt.setString(3, "F");
+            pstmt.setString(3, "P");
             
             rs = pstmt.executeQuery();
 
@@ -458,7 +458,7 @@ public class boardDBBean{
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs= null;
-        String status = "F";
+        String status = "P";
         String sql = "insert into reservation (s_id, b_id, status, r_info) values(?,?,?,?)";
 
         try{
