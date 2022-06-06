@@ -64,6 +64,7 @@ div #dept_menu{
     padding-left: 0px;
     margin-top: 40px;
     float: left;
+    border: 5px solid rgb(69, 71, 187);
 }
 
 a {
@@ -251,3 +252,52 @@ h1{
         background-color: #368625;
         display: block;
         margin : 20px auto; }
+
+#used-container{
+    width: 80%;
+    margin :0px auto;
+    
+    border: 1.5px solid rgb(0, 0, 0);
+
+}
+#radiobar{
+    text-align: center;
+    border: 1.5px solid rgb(0, 0, 0);
+}
+#used-table{
+    text-align: center;
+    margin : auto;
+    border: 1.5px solid rgb(0, 0, 0);
+}
+
+.rd {
+    padding: 15px 10px;
+    text-align: center;
+}
+.rd input[type=radio]{
+    display: none;
+}
+.rd input[type=radio]+label{
+    display: inline-block;
+    cursor: pointer;
+    height: 24px;
+    width: 90px;
+    border: 1px solid #333;
+    line-height: 24px;
+    text-align: center;
+    font-weight:bold;
+    font-size:15px;
+    margin: 3px;
+}
+.rd input[type=radio]+label{
+    background-color: #fff;
+    color: #333;
+}
+.rd input[type=radio]:checked+label{
+    background-color: #333;
+    color: #fff;
+}
+#btn_sb{
+    margin:auto;
+    display:block;
+}

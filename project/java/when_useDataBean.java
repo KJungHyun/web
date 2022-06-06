@@ -2,7 +2,8 @@ package project.java.book;
 
 public class when_useDataBean{
     private int id;
-    private String bookname;
+    private String book_name;
+	private int department_id;
     private Short use_date;
     private String grade;
     private String semester;
@@ -17,12 +18,18 @@ public class when_useDataBean{
 		this.id = id;
 	}
 
-	public String getBookname() {
-		return this.bookname;
+	public String getBook_name() {
+		return this.book_name;
 	}
 
-	public void setBookname(String bookname) {
-		this.bookname = bookname;
+	public void setBook_name(String book_name) {
+		this.book_name = book_name;
+	}
+	public int getDepartment_id(){
+		return this.department_id;
+	}
+	public void setDepartment_id(int department_id){
+		this.department_id = department_id;
 	}
 
 	public Short getUse_date() {

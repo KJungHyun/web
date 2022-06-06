@@ -30,7 +30,7 @@ public class when_useDBBean {
         DataSource ds = (DataSource)envCtx.lookup("jdbc/ysu_project");
         return ds.getConnection();
     }
-
+    /*
     public List<when_useDataBean>getArticle() throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
@@ -66,6 +66,7 @@ public class when_useDBBean {
        }
 		return articleList;
     }
+    /*
     //검색기능
     public List<when_useDataBean>getSearchList(int choice, String searchWord) throws Exception {
         Connection conn = null;
@@ -130,19 +131,20 @@ public class when_useDBBean {
        }
 		return articleList;
     }
-
-    public List<when_useDataBean>getUsedList(String year, String grade, String semester) throws Exception {
+    */
+    public List<when_useDataBean>getUsedList(String year, String dept_no, String grade, String semester) throws Exception {
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         List<when_useDataBean> articleList=null;
         try{
         conn = getConnection();
-        String sql = "SELECT * FROM when_use WHERE use_date = ? and grade = ? and semester = ?";
+        String sql = "SELECT * FROM when_use WHERE use_date = ? and department_id LIKE ? and grade = ? and semester = ?";
         pstmt = conn.prepareStatement(sql);
         pstmt.setString(1, year);
-        pstmt.setString(2, grade);
-        pstmt.setString(3, semester);
+        pstmt.setString(2, "%"+dept_no+"%");
+        pstmt.setString(3, grade);
+        pstmt.setString(4, semester);
 
         rs = pstmt.executeQuery();
 
@@ -151,7 +153,8 @@ public class when_useDBBean {
                do{
                   when_useDataBean article= new when_useDataBean();
 				  article.setId(rs.getInt("id"));
-                  article.setBookname(rs.getString("bookname"));
+                  article.setBook_name(rs.getString("book_name"));
+                  article.setDepartment_id(rs.getInt("department_id"));
                   article.setUse_date(rs.getShort("use_date"));
 			      article.setGrade(rs.getString("grade"));
 				  article.setSemester(rs.getString("semester"));
@@ -172,7 +175,7 @@ public class when_useDBBean {
     }
                 
 }
-
+/*
 
 if (s_idCnt<=bookCnt){
     sql="select DISTINCT(s_id)from reservation where b_id=? and r_info=?";
@@ -230,3 +233,4 @@ if (s_idCnt<=bookCnt){
     }
     System.out.println("반환 완료.");
 }
+*/
