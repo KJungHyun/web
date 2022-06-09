@@ -34,7 +34,7 @@
                 <td>
                     <form method="get" action="donationPagePro.jsp">
                         <input type="hidden" name="d_number" value="<%=article.getD_number()%>">
-                        <input type="hidden" id="status" value="<%=article.getStatus()%>">
+                        <input type="hidden" id="status" name="status" value="<%=article.getStatus()%>">
                         <input type="hidden" id="btnName" name="select" value="취소">
                         <button type="submit" onclick="return cancelBtn();">취소</button>
                     </form>
@@ -43,8 +43,13 @@
                 <td>
                     <form method="get" action="donationPagePro.jsp">
                         <input type="hidden" name="d_number" value="<%=article.getD_number()%>">
-                        <input type="hidden" value="<%=article.getStatus()%>">
+                        <input type="hidden" name="status" value="<%=article.getStatus()%>">
                         <input type="hidden" name="select" value="수령">
+                        <input type="hidden" name="book_name" value="<%=article.getBook_name()%>">
+                        <input type="hidden" name="writer" value="<%=article.getWriter()%>">
+                        <input type="hidden" name="publisher" value="<%=article.getPublisher()%>">
+                        <input type="hidden" name="date" value="<%=article.getDate()%>">
+                        <input type="hidden" name="dept" value="<%=article.getDepartment_id()%>">
                         <button type="submit" onclick="return okBtn();">수령</button>
                     </form>
                 </td>

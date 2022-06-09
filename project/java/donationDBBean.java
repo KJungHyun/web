@@ -194,7 +194,31 @@ public class donationDBBean {
         return deptNum;
     }
 
+    public void insertBook(String book_name, String writer, String publisher, int dept, String date){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
 
+        String insert_book = "insert into book (book_name, writer, publisher, date, department_id) values(?,?,?,?,?)";
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(insert_book);
+            pstmt.setString(1, book_name);
+            pstmt.setString(2, writer);
+            pstmt.setString(3, publisher);
+            pstmt.setString(4, date);
+            pstmt.setInt(5, dept);
+            pstmt.executeUpdate();
+            
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+    }
 
     public void donationInsert(String s_id, String book_name, int book_num, String writer, String publisher, int dept, String date, String p_date, String status){
         Connection conn = null;
