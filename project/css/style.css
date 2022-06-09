@@ -1,5 +1,5 @@
 #wrap{
-    width: 1300px;
+    width: 1400px;
     height: 1700px;
     margin: 0px auto; /*가운데 정렬*/
 }
@@ -107,7 +107,7 @@ div #res_img img{
 
 div #res_table{
     float: left;
-    width: 480px;
+    width: 600px;
     margin-top: 40px;
     margin-left: 60px;
 }

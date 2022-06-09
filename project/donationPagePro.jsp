@@ -12,10 +12,21 @@
     donationDBBean donaPro = donationDBBean.getInstance();
 
     if(select.equals("수령")){
-        donaPro.donationStatusUpdate(d_number);
-    }else if(select.equals("취소")){
-        donaPro.donationDelete(d_number);
-    }
-
-    response.sendRedirect("donationPage.jsp");
 %>
+    <script>
+        alert("수령을 완료했습니다.");
+    </script>
+<%
+        donaPro.donationStatusUpdate(d_number, "P");
+    }else if(select.equals("취소")){
+%>
+    <script>
+        alert("취소되었습니다.");
+    </script>
+<%
+        donaPro.donationStatusUpdate(d_number, "F");
+    }
+%>
+<script>
+    location.href="donationPage.jsp";
+</script>

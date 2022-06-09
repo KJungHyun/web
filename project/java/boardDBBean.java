@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ArrayList;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -311,28 +310,7 @@ public class boardDBBean{
         return cnt;
     }
 
-    public int getRound() throws Exception{
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs= null;
-        int round=0;
-
-        String sql = "";
-        
-
-        try{
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-        }
-
-        return 1;
-    }
-
-    public int getResCount(int b_id, int r_info) throws Exception{
+    public int getResCount(int b_id, String r_info) throws Exception{
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs= null;
@@ -345,7 +323,7 @@ public class boardDBBean{
             conn = getConnection();
             pstmt = conn.prepareStatement(sql);
             pstmt.setInt(1, b_id);
-            pstmt.setInt(2, r_info);
+            pstmt.setString(2, r_info);
             pstmt.setString(3, "P");
             
             rs = pstmt.executeQuery();
@@ -364,7 +342,59 @@ public class boardDBBean{
         return cnt;
     }
 
+    public String getUserName(String s_id){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        String name="";
+        String sql = "select * from student where s_id=?";
+
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, s_id);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                name = rs.getString("name");
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return name;
+    }
+
     public int getDonationCount(String id){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        int cnt=0;
+        String sql = "select * from donation_check where s_id=?";
+
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                cnt = rs.getInt("r_increase");
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return cnt;
+    }
+
+    public int getReservationCount(String id){
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs= null;
@@ -390,7 +420,7 @@ public class boardDBBean{
         return cnt;
     }
 
-    public ArrayList<String> getReservationList(String id, int r_info){
+    public ArrayList<String> getReservationList(String id, String r_info){
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs= null;
@@ -403,7 +433,7 @@ public class boardDBBean{
             conn = getConnection();
             pstmt = conn.prepareStatement(reservation);
             pstmt.setString(1, id);
-            pstmt.setInt(2, r_info);
+            pstmt.setString(2, r_info);
             rs=pstmt.executeQuery();
             while(rs.next()){
                 pstmt = conn.prepareStatement(sql);

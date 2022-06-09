@@ -7,6 +7,8 @@
 <%@ page import="project.java.book.boardDBBean"%>
 <%@ page import="project.java.book.bookDataBean"%>
 <%@ page import="project.java.book.bookDBBean"%>
+<%@ page import="project.java.book.roundDataBean"%>
+<%@ page import="project.java.book.roundDBBean"%>
 <%
     String id = (String)session.getAttribute("id");
     String book_name = request.getParameter("book_name");
@@ -14,13 +16,20 @@
 
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
+    roundDBBean roundPro = roundDBBean.getInstance();
+    String r_info = roundPro.getRoundNum();
+    String start_date=roundPro.getRoundStartDate(r_info);
+    String end_date = roundPro.getRoundEndDate(r_info);
+    String status = roundPro.getRoundStatus(r_info);
+
     boardDBBean boardPro = boardDBBean.getInstance();
     int bookCount = boardPro.getBookCount(book_name);
-    int r_info=1;
     int resCount = boardPro.getResCount(b_id, r_info);
 
     bookDataBean article = boardPro.getBoardDetail(book_name);
     boardDBBean bkPro = boardDBBean.getInstance();
+
+    
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -69,7 +78,7 @@
                         </tbody>
                         <tfoot>
                             <td colspan="2">
-                                <a href="reservationPagePro.jsp?b_id=<%=b_id%>" style="float:right"><button style="border-radius: 5px;">예약하기</button></a>
+                                <a href="reservationPagePro.jsp?b_id=<%=b_id%>" style="float:right" onclick="return resCountCheck();"><button style="border-radius: 5px;">예약하기</button></a>
                                 <select style="float:right">
                                     <option>1회</option>
                                 </select>
@@ -87,3 +96,23 @@
     </div>
 </body>
 </html>
+
+<script>
+    function resCountCheck(){
+        var check = false;
+        var bookCnt = "<%=bookCount%>";
+        var resCnt = "<%=bkPro.getReservationCount(id)%>";
+        if(bookCnt==0){
+            alert("책의 재고가 없어 신청이 불가능합니다");
+        }else{
+            if(resCnt>=1){
+                alert("예약하셨습니다.");
+                check=true;
+            }else{
+                alert("예약 가능 횟수가 부족합니다.");
+            }
+        }
+        
+        return check;
+    }
+</script>

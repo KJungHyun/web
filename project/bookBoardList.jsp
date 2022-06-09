@@ -56,7 +56,7 @@ if(count!=0){
        boardDataBean article = articleList.get(i);
        bookDataBean article_detail = bkPro.getBoardDetail(article.getBook_name());
 %>
-<div class="card mb-3" style="width: 580px;">
+<div class="card mb-3" style="width: 700px;">
     <div class="row g-0">
         <div class="col-md-4">
             <img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="...">
@@ -68,7 +68,8 @@ if(count!=0){
                 <p class="card-text"><%=article_detail.getWriter()%></p>
                 <p class="card-text"><%=sdf.format(article_detail.getDate())%></p>
                 <p class="card-text">
-                  <a href="reservationPage.jsp?book_name=<%=article.getBook_name()%>&b_id=<%=article.getB_id()%>"><button id="btn-r">예약하기</button></a>
+                    <a href="reservationPage.jsp?book_name=<%=article.getBook_name()%>&b_id=<%=article.getB_id()%>">
+                    <button id="btn-r" onclick="return reservationDateCheck();">예약하기</button></a>
                 </p>
             </div>
           </div>

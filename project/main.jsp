@@ -2,10 +2,13 @@
     pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*"%>
 <%@ page import="java.util.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="project.java.book.boardDataBean"%>
 <%@ page import="project.java.book.boardDBBean"%>
 <%@ page import="project.java.book.bookDataBean"%>
 <%@ page import="project.java.book.bookDBBean"%>
+<%@ page import="project.java.book.roundDataBean"%>
+<%@ page import="project.java.book.roundDBBean"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -24,13 +27,16 @@
         if (name==null){
             name="";
         }
-
-        int r_info=1;
         int deptSelectNum=1;
+
+        roundDBBean roundPro = roundDBBean.getInstance();
+        String r_info = roundPro.getRoundNum();
+        String start_date=roundPro.getRoundStartDate(r_info);
+        String end_date = roundPro.getRoundEndDate(r_info);
+        String status = roundPro.getRoundStatus(r_info);
     %>
 
     <jsp:include page="topNav.jsp"></jsp:include>
-    
     <div id="wrap">
         <jsp:include page="topHeader.jsp"></jsp:include>
 
@@ -78,6 +84,26 @@
         var select = document.getElementById("select");
         var selectNum = '<%=select%>';
         select.options[selectNum-1].selected=true;
+    }
+
+    function reservationDateCheck(){
+        var start_date = new Date("<%=start_date%>");
+        var end_date = new Date("<%=end_date%>");
+        var now_date = new Date();
+        var status = "<%=status%>";
+        var check = false;
+
+        if(start_date<now_date && now_date<end_date){
+            if(status=="T"){
+                check=true;
+            }else{
+                alert("지금은 예약이 만료되었습니다.");
+            }
+        }else{
+            alert("지금은 예약 시간이 아닙니다.");
+        }
+        return check;
+
     }
     
 </script>

@@ -11,6 +11,7 @@
 %>              
             <tr style="text-align:center">
                 <td><img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="..." style="width:160px; height:200px"></td>
+                <td><%=article.getS_id()%></td>
                 <td title="개정판(번호):<%=article.getBook_num()%>"><%=article.getBook_name()%></td>
                 <td><%=article.getWriter()%></td>
                 <td><%=article.getPublisher()%></td>
@@ -18,31 +19,36 @@
                 <td><%=donationPro.getDeptName(article.getDepartment_id())%></td>
                 <td><%=sdf.format(article.getP_date())%></td>
                 <td>
-                    <%=article.getStatus()%>
+                <%  String status=article.getStatus();
+                    if(status.equals("F")){
+                %>
+                    취소됨
+                <%}else if(status.equals("C")){%>
+                    진행중
+                <%}else if(status.equals("P")){%>
+                    수령됨
+                <%}else if(status.equals("T")){%>
+                    전달완료
+                <%}%>
                 </td>
-            <% if(article.getStatus().equals("C")){%>
                 <td>
                     <form method="get" action="donationPagePro.jsp">
                         <input type="hidden" name="d_number" value="<%=article.getD_number()%>">
-                        <input type="hidden" name="select" value="취소">
-                        <button type="submit">취소</button>
+                        <input type="hidden" id="status" value="<%=article.getStatus()%>">
+                        <input type="hidden" id="btnName" name="select" value="취소">
+                        <button type="submit" onclick="return cancelBtn();">취소</button>
                     </form>
                 </td>
             <% if(id.equals("root")){%>
                 <td>
                     <form method="get" action="donationPagePro.jsp">
                         <input type="hidden" name="d_number" value="<%=article.getD_number()%>">
+                        <input type="hidden" value="<%=article.getStatus()%>">
                         <input type="hidden" name="select" value="수령">
-                        <button type="submit">수령</button>
+                        <button type="submit" onclick="return okBtn();">수령</button>
                     </form>
                 </td>
-                <%}else{%>
-                    <td></td>
                 <%}%>
-            <% }else if(article.getStatus().equals("T") && id.equals("root")){ %>
-                <td></td>
-                <td></td>
-            <%}%>
             </tr>
     <%}%>
         </tbody>
@@ -84,3 +90,4 @@
             %>
                 </ul>
             </nav>
+            

@@ -16,8 +16,6 @@
         select="1";
     }
 
-    
-
     int pageSize = 10;
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -55,10 +53,11 @@
 %>
 <div class="row row-cols-1 row-cols-md-3 g-4" style="margin-left: 30px;">
 <%  
+if(count!=0){
    for (int i = 0 ; i < articleList.size() ; i++) {
        bookDataBean article = articleList.get(i);
 %>
-<div class="card mb-3" style="width: 450px; margin-left: 20px;">
+<div class="card mb-3" style="width: 500px; margin-left: 20px;">
     <div class="row g-0">
         <div class="col-md-4">
             <img src="./images/<%=article.getBook_name()%>.jpg" class="img-fluid rounded-start" alt="...">
@@ -79,12 +78,12 @@
                     
                         <input name="book_name" type="hidden" value="<%=article.getBook_name()%>">
                         <input name="select" type="hidden" value="추가">
-                        <button type="submit">추가</button>
+                        <button type="submit" id="radius">추가</button>
                     
                 <%}else{%>
                         <input name="book_name" type="hidden" value="<%=article.getBook_name()%>">
                         <input name="select" type="hidden" value="삭제">
-                        <button type="submit">삭제</button>
+                        <button type="submit" id="radius" style="background-color: red;">삭제</button>
                 <%}%>
                 </form>
                 </p>
@@ -134,7 +133,8 @@
 <%
         }
     }
-%>
+}else{%>
+<h1 style="margin-top: 130px; margin-left: 50px;">검색 내용이 없습니다.</h1>
+<%}%>
     </ul>
 </nav>
-

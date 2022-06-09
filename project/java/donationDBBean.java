@@ -227,12 +227,12 @@ public class donationDBBean {
 
     }
 
-    public void donationStatusUpdate(String d_number){
+    public void donationStatusUpdate(String d_number, String status){
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
         String id="";
-        String sql = "update donation set status='P' WHERE d_number=?;";
+        String sql = "update donation set status=? WHERE d_number=?;";
         String sql2 = "select * from donation where d_number=?";
         
         String donation = "select * from donation_check where s_id=?";
@@ -243,7 +243,8 @@ public class donationDBBean {
         try {
             conn = getConnection();
             pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1, d_number);
+            pstmt.setString(1, status);
+            pstmt.setString(2, d_number);
             pstmt.executeUpdate();
 
             pstmt=conn.prepareStatement(sql2);
@@ -274,28 +275,6 @@ public class donationDBBean {
 
                 }
             }
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        } finally {
-            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
-            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
-            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
-        }
-        
-    }
-
-    public void donationDelete(String d_number){
-        Connection conn = null;
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
-        String sql = "delete from donation where d_number=?";
-
-        try {
-            conn = getConnection();
-            pstmt=conn.prepareStatement(sql);
-
-            pstmt.setString(1, d_number);
-            pstmt.executeUpdate();
         } catch(Exception ex) {
             ex.printStackTrace();
         } finally {

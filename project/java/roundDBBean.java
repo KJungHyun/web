@@ -22,6 +22,58 @@ public class roundDBBean {
         return ds.getConnection();
     }
 
+    public String getRoundStartDate(String r_info){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql ="select start_date from round where r_info=?";
+        String start_date = "";
+ 
+      try {
+            conn = getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, r_info);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+               start_date=rs.getString("start_date");
+			}
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+		return start_date;
+    }
+
+    public String getRoundEndDate(String r_info){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String sql ="select end_date from round where r_info=?";
+        String end_date = "";
+ 
+      try {
+            conn = getConnection();
+            pstmt=conn.prepareStatement(sql);
+            pstmt.setString(1, r_info);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                end_date=rs.getString("end_date");
+			}
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+		return end_date;
+    }
+
     public int getArticleCount(String r_info)
              throws Exception {
         Connection conn = null;
@@ -66,12 +118,12 @@ public class roundDBBean {
       try {
             conn = getConnection();
             if(r_info.equals("all")){
-                sql="select * from round limit ?,?";
+                sql="select * from round order by r_info desc limit ?,? ";
                 pstmt=conn.prepareStatement(sql);
                 pstmt.setInt(1, start-1);
                 pstmt.setInt(2, end);
             }else{
-                sql="select * from round where r_info=? limit ?,?";
+                sql="select * from round where r_info=? order by r_info desc limit ?,?";
                 pstmt=conn.prepareStatement(sql);
                 pstmt.setString(1, r_info);
                 pstmt.setInt(2, start-1);
@@ -102,11 +154,11 @@ public class roundDBBean {
          return articleList;
     }
 
-    public int getRoundNum(){
+    public String getRoundNum(){
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
-        int count = 0;
+        String r_info = "";
 
         String sql = "select max(r_info) from round";
 
@@ -116,7 +168,7 @@ public class roundDBBean {
             rs = pstmt.executeQuery();
 
             if(rs.next()){
-                count=rs.getInt(1);
+                r_info=rs.getString(1);
             }
  
         } catch(Exception ex) {
@@ -126,7 +178,7 @@ public class roundDBBean {
             if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
-        return count;
+        return r_info;
     }
 
     public void setDateUpdate(String r_info, String end_date){
@@ -142,6 +194,31 @@ public class roundDBBean {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, end_date);
             pstmt.setString(2, r_info);
+            pstmt.executeUpdate();
+ 
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+    }
+
+    public void roundInsert(String r_info, String start_date, String end_date){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String sql = "insert into round(r_info, start_date, end_date, status) values(?,?,?,?)";
+
+        try {
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, r_info);
+            pstmt.setString(2, start_date);
+            pstmt.setString(3, end_date);
+            pstmt.setString(4, "T");
             pstmt.executeUpdate();
  
         } catch(Exception ex) {
@@ -434,5 +511,31 @@ public class roundDBBean {
             if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
             if (conn != null) try { conn.close(); } catch(SQLException ex) {}
         }
+    }
+    
+    public String getRoundStatus(String r_info){
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs= null;
+        String status="";
+        String sql = "select * from round where r_info=?";
+
+        try{
+            conn = getConnection();
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, r_info);
+            rs=pstmt.executeQuery();
+            if(rs.next()){
+                status = rs.getString("status");
+            }
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        } finally {
+            if (rs != null) try { rs.close(); } catch(SQLException ex) {}
+            if (pstmt != null) try { pstmt.close(); } catch(SQLException ex) {}
+            if (conn != null) try { conn.close(); } catch(SQLException ex) {}
+        }
+
+        return status;
     }
 }

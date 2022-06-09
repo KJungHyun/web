@@ -16,7 +16,7 @@
     int dept = Integer.parseInt(request.getParameter("dept"));
     String date = df.format(df.parse(request.getParameter("date")));
     String p_date =  df.format(df.parse(request.getParameter("p_date")));
-    String status = "F";
+    String status = "C";
     
     donaPro.donationInsert(id, book_name, book_num, writer, publisher, dept, date, p_date, status);
     response.sendRedirect("donationPage.jsp");

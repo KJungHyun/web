@@ -80,10 +80,11 @@
         </div>
 
         <div id="y_container">
-            <table class="table table-striped table-hover">
+            <table class="table table-striped table-hover" >
                 <thead>
                     <tr style="text-align:center">
                         <td>이미지</td>
+                        <td>아이디</td>
                         <td style="width:270px;">책 제목</td>
                         <td>저자</td>
                         <td>출판사</td>
@@ -116,5 +117,23 @@
         var select = document.getElementById("select");
         var selectNum = '<%=select%>';
         select.options[selectNum-1].selected=true;
+    }
+
+    function cancelBtn(){
+        var check = false;
+        
+        if(confirm("취소하시겠습니까?")){
+            check = true;
+        }
+        return check;
+    }
+
+    function okBtn(){
+        var check = false;
+        
+        if(confirm("수령하시겠습니까?")){
+            check = true;
+        }
+        return check;
     }
 </script>

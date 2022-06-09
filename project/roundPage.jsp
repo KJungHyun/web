@@ -39,7 +39,7 @@
     </script>
 <%
     }else{
-        count = roundPro.getRoundNum();
+        count = Integer.parseInt(roundPro.getRoundNum());
         articleList = roundPro.getSearchList(startRow, endRow, r_info);
     
         if (count > 0) {
@@ -57,6 +57,13 @@
     <link href="../assets/bootstrap-5.1.1/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/fontawesome-free-5.15.4-web/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
+    <style>
+        table {
+            margin-left: auto; 
+            margin-right: auto; 
+            text-align: center;
+        }
+    </style>
 </head>
 <body onload="selectBtn();">
     <jsp:include page="topNav.jsp"></jsp:include>
@@ -64,13 +71,18 @@
         <jsp:include page="topHeader.jsp"></jsp:include>
 
         <div id="y_container">
+            <div style="float: left;">
+                <a href="javascript:openNewWindow('roundInsertPage.jsp?r_info=<%=roundPro.getRoundNum()%>')">
+                    <button type="button" id="radius">새로운 회차추가</button>
+                </a>
+            </div>
             <div>
                 <form method="get" action="roundPage.jsp" style="float: right;">
                     회차정보
                     <select id="select" name="r_info" >
                         <option value="all">전체보기</option>
                         <%
-                            for(int cnt=roundPro.getRoundNum(); cnt >= 1; cnt--){
+                            for(int cnt=Integer.parseInt(roundPro.getRoundNum()); cnt >= 1; cnt--){
                         %>
                         <option value="<%=cnt%>"><%=cnt%></option>
                         <%}%>
@@ -79,7 +91,7 @@
                 </form>
             </div>
 
-            <table class="table table-striped" style="margin-left: auto; margin-right: auto; text-align: center;" >
+            <table class="table table-striped">
                 <thead>
                     <tr style="text-align:center">
                         <td>회차</td>
@@ -96,7 +108,7 @@
                     <%  
                         for(int i=0; i < articleList.size(); i++){
                             roundDataBean article = articleList.get(i);
-                    %>    
+                    %>
                     <tr style="text-align: center;">
                         <td><%=article.getR_info()%></td>
                         <td><%=sdf.format(article.getStart_date())%></td>
@@ -109,15 +121,15 @@
                             <%}%>
                         </td>
                         <% if (id.equals("root")){%>
-                            <td>
-                                <form method="post" action="roundPagePro.jsp">
-                                    <input name="r_info" type="hidden" value="<%=article.getR_info()%>">
-                                    <input name="start_date" type="hidden" value="<%=article.getStart_date()%>">
-                                    <input name="end_date" type="hidden" value="<%=article.getEnd_date()%>">
-                                    <input id="status" name="status" type="hidden" value="<%=article.getStatus()%>">
-                                    <button type="submit" onclick="return drawBtn();">추첨하기</button>
-                                </form>
-                            </td>
+                        <td>
+                            <form method="post" action="roundPagePro.jsp">
+                                <input name="r_info" type="hidden" value="<%=article.getR_info()%>">
+                                <input name="start_date" type="hidden" value="<%=article.getStart_date()%>">
+                                <input name="end_date" type="hidden" value="<%=article.getEnd_date()%>">
+                                <input name="status" type="hidden" value="<%=article.getStatus()%>">
+                                <button type="submit" onclick="return drawBtn();" id="radius">추첨하기</button>
+                            </form>
+                        </td>
                         <%}%>
                     </tr>
                     <%}%>
@@ -139,20 +151,26 @@
 <script>
     function selectBtn(){
         var select = document.getElementById("select");
-        var selectNum = '<%=r_info%>';
-        select.options[selectNum].selected=true;
+        var selectValue = "<%=r_info%>";
+        var num=0;
+        if(selectValue=="all"){
+            num=0;
+        }else{
+            num=selectValue-1;
+        }
+        select.options[num].selected=true;
     }
 
     function drawBtn(){
-        var status = document.getElementById("status").value;
-        var returnStatus = false;
-        if(status=="T"){
-            if(confirm("정말 추첨하시겠습니까?")){
-                returnStatus = true;
-            }
-        }else{
-            alert("이미 추첨을 완료했습니다.");
+        var statusCheck = false;
+        if(confirm("정말 추첨하시겠습니까?")){
+             statusCheck = true;
         }
-        return returnStatus;
+        return statusCheck;
     }
+
+    function openNewWindow(window) { 
+		open (window,"Mail","toolbar=no, location=no, directories=no, status=no, menubar=no, \
+        scrollbars=no, resizable=no, width=550, height=500"); 
+	}
 </script>

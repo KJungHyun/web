@@ -101,13 +101,24 @@
                                 종료
                             <%}%>
                         </td>
-                        <td><button>추첨하기</button></td>
+                        <td>
+                            <form method="post" action="roundPagePro.jsp">
+                                <input name="r_info" type="hidden" value="<%=r_info%>">
+                                <input name="start_date" type="hidden" value="<%=reservationPro.getStartDate(r_info)%>">
+                                <input name="end_date" type="hidden" value="<%=reservationPro.getEndDate(r_info)%>">
+                                <input id="status" name="status" type="hidden" value="<%=reservationPro.getStatus(r_info)%>">
+                                <button type="submit" onclick="return drawBtn();" id="radius">추첨하기</button>
+                            </form>
+                    </td>
                     </tbody>
             </table>
             <table class="table table-striped">
                 <thead>
                     <tr style="text-align:center">
                         <td>이미지</td>
+                        <% if(id.equals("root")){%>
+                        <td>아이디</td>
+                        <%}%>
                         <td>책 제목</td>
                         <td>현재상황</td>
                         <td>회차정보</td>
@@ -125,6 +136,9 @@
                                 <img src="" class="img-fluid rounded-start" alt="...">
                             </div>
                         </td>
+                        <% if(id.equals("root")){%>
+                            <td><%=article.getS_id()%></td>
+                        <%}%>
                         <td><%=reservationPro.getBookName(article.getB_id())%></td>
                         <td>
                             <% if(article.getStatus().equals("T")){%>
@@ -158,5 +172,18 @@
         var select = document.getElementById("select");
         var selectNum = '<%=r_info%>';
         select.options[selectNum].selected=true;
+    }
+
+    function drawBtn(){
+        var status = document.getElementById("status").value;
+        var statusCheck = false;
+        if(status=="T"){
+            if(confirm("정말 추첨하시겠습니까?")){
+                statusCheck = true;
+            }
+        }else{
+            alert("이미 추첨을 완료했습니다.");
+        }
+        return statusCheck;
     }
 </script>
