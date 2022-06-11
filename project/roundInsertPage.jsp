@@ -31,7 +31,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>출판년도<span style="color:red">(필수)</span></td>
+                    <td>시작날짜<span style="color:red">(필수)</span></td>
                     <td>
                         <div class="input-group mb-3" style="width: 200px;">
                             <input type="date" class="form-control" name="start_date" aria-label="start_date" aria-describedby="basic-addon1" required>
@@ -39,7 +39,7 @@
                     </td>
                 </tr>
                 <tr>
-                    <td>전달 날짜<span style="color:red">(필수)</span></td>
+                    <td>종료날짜<span style="color:red">(필수)</span></td>
                     <td>
                         <div class="input-group mb-3" style="width: 200px;">
                             <input type="date" class="form-control" name="end_date" aria-label="end_date" aria-describedby="basic-addon1" required>

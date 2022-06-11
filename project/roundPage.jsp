@@ -171,6 +171,6 @@
 
     function openNewWindow(window) { 
 		open (window,"Mail","toolbar=no, location=no, directories=no, status=no, menubar=no, \
-        scrollbars=no, resizable=no, width=550, height=500"); 
+        scrollbars=no, resizable=no, width=650, height=500"); 
 	}
 </script>
