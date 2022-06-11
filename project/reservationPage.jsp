@@ -119,21 +119,12 @@
                         alert("예약 가능 횟수가 부족합니다.");
                     }
                 }
-                check=true;
             }else{
                 alert("지금은 예약이 만료되었습니다.");
             }
         }else{
             alert("지금은 예약 시간이 아닙니다.");
         }
-        return check;
-    }
-
-    function reservationDateCheck(){
-        
-        var check = false;
-
-        
         return check;
     }
 </script>

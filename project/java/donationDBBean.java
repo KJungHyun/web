@@ -251,7 +251,7 @@ public class donationDBBean {
 
     }
 
-    public void donationStatusUpdate(String d_number, String status){
+    public void donationStatusUpdate(String d_number, String change, String status){
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -260,14 +260,14 @@ public class donationDBBean {
         String sql2 = "select * from donation where d_number=?";
         
         String donation = "select * from donation_check where s_id=?";
-        String donation2 = "update donation_check set r_increase=r_increase+1 where s_id=?";
+        String donation2 = "";
         String donation3 = "update donation_check set r_aval=r_aval+1 where s_id=?";
         String donation4 = "update donation_check set r_increase=0 where s_id=?";
 
         try {
             conn = getConnection();
             pstmt=conn.prepareStatement(sql);
-            pstmt.setString(1, status);
+            pstmt.setString(1, change);
             pstmt.setString(2, d_number);
             pstmt.executeUpdate();
 
@@ -277,7 +277,19 @@ public class donationDBBean {
             if(rs.next()){
                 id = rs.getString("s_id");
             }
-
+            
+            System.out.println("조건체크");
+            if(change.equals("F")){
+                System.out.println("F임");
+                if(status.equals("P")){
+                    donation2 = "update donation_check set r_increase=r_increase-1 where s_id=?";
+                }else{
+                    donation2 = "update donation_check set r_increase=r_increase where s_id=?";
+                }
+            }else{
+                System.out.println("P임");
+                donation2 = "update donation_check set r_increase=r_increase+1 where s_id=?";
+            }
             pstmt=conn.prepareStatement(donation2);
             pstmt.setString(1, id);
             pstmt.executeUpdate();

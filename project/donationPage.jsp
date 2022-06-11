@@ -118,22 +118,4 @@
         var selectNum = '<%=select%>';
         select.options[selectNum-1].selected=true;
     }
-
-    function cancelBtn(){
-        var check = false;
-        
-        if(confirm("취소하시겠습니까?")){
-            check = true;
-        }
-        return check;
-    }
-
-    function okBtn(){
-        var check = false;
-        
-        if(confirm("수령하시겠습니까?")){
-            check = true;
-        }
-        return check;
-    }
 </script>

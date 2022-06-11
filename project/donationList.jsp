@@ -5,7 +5,7 @@
 <%@ page import="project.java.book.donationDBBean"%>
 
         <tbody>
-<%  
+<%  String status="";
     for(int i=0; i < articleList.size(); i++){
         donationDataBean article = articleList.get(i);
 %>              
@@ -19,7 +19,7 @@
                 <td><%=donationPro.getDeptName(article.getDepartment_id())%></td>
                 <td><%=sdf.format(article.getP_date())%></td>
                 <td>
-                <%  String status=article.getStatus();
+                <%  status=article.getStatus();
                     if(status.equals("F")){
                 %>
                     취소됨
@@ -95,4 +95,21 @@
             %>
                 </ul>
             </nav>
-            
+<script>
+    
+    function cancelBtn(){
+        var check = false;
+        if(confirm("취소하시겠습니까?")){
+            check = true;
+        }
+        return check;
+    }
+
+    function okBtn(){
+        var check = false;
+        if(confirm("수령하시겠습니까?")){
+            check = true;
+        }      
+        return check;
+    }
+</script>

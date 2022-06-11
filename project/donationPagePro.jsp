@@ -22,28 +22,53 @@
     
 
     if(select.equals("수령")){
+        if(status.equals("P")){
 %>
+            <script>
+                alert("이미 수령된 책입니다.");
+            </script>
+<%
+        }else if(status.equals("T")){
+%>
+            <script>
+                alert("이미 전달된 책입니다.");
+            </script>
+<%      }else{%>
     <script>
         alert("수령을 완료했습니다.");
     </script>
-<%      book_name = request.getParameter("book_name");
-        writer = request.getParameter("writer");
-        publisher = request.getParameter("publisher");
-        dept = Integer.parseInt(request.getParameter("dept"));
-        date = df.format(df.parse(request.getParameter("date")));
-        donaPro.donationStatusUpdate(d_number, "P");
-        donaPro.insertBook(book_name, writer, publisher, dept, date);
+<%          book_name = request.getParameter("book_name");
+            writer = request.getParameter("writer");
+            publisher = request.getParameter("publisher");
+            dept = Integer.parseInt(request.getParameter("dept"));
+            date = df.format(df.parse(request.getParameter("date")));
+            donaPro.donationStatusUpdate(d_number, "P", status);
+            donaPro.insertBook(book_name, writer, publisher, dept, date);
+        }
     }else if(select.equals("취소")){
         if(id.equals("root") || id=="root"){
-            donaPro.donationStatusUpdate(d_number, "F");
+            if(status.equals("F")){
+%>
+        <script>
+            alert("이미 거절된 책입니다.");
+        </script>
+<% 
+            }else if(status.equals("T")){
+%>
+        <script>
+            alert("이미 전달된 책입니다.");
+        </script>
+<%
+            }else{
+                donaPro.donationStatusUpdate(d_number, "F", status);
 %>
             <script>
                 alert("취소되었습니다.");
             </script>
-<%
+<%          }
         }else{
             if(status.equals("C")){
-                donaPro.donationStatusUpdate(d_number, "F");
+                donaPro.donationStatusUpdate(d_number, "F", status);
 %>
 <script>
     alert("취소되었습니다.");
