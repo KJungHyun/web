@@ -102,16 +102,37 @@
         var check = false;
         var bookCnt = "<%=bookCount%>";
         var resCnt = "<%=bkPro.getReservationCount(id)%>";
-        if(bookCnt==0){
-            alert("책의 재고가 없어 신청이 불가능합니다");
-        }else{
-            if(resCnt>=1){
-                alert("예약하셨습니다.");
+        var start_date = new Date("<%=start_date%>");
+        var end_date = new Date("<%=end_date%>");
+        var now_date = new Date();
+        var status = "<%=status%>";
+
+        if(start_date<now_date && now_date<end_date){
+            if(status=="T"){
+                if(bookCnt==0){
+                    alert("책의 재고가 없어 신청이 불가능합니다");
+                }else{
+                    if(resCnt>=1){
+                        alert("예약하셨습니다.");
+                        check=true;
+                    }else{
+                        alert("예약 가능 횟수가 부족합니다.");
+                    }
+                }
                 check=true;
             }else{
-                alert("예약 가능 횟수가 부족합니다.");
+                alert("지금은 예약이 만료되었습니다.");
             }
+        }else{
+            alert("지금은 예약 시간이 아닙니다.");
         }
+        return check;
+    }
+
+    function reservationDateCheck(){
+        
+        var check = false;
+
         
         return check;
     }

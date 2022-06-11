@@ -484,7 +484,7 @@ public class boardDBBean{
         return check;
     }
 
-    public void reservationInsert(String id, int b_id, int r_info) throws Exception{
+    public void reservationInsert(String id, int b_id, String r_info) throws Exception{
         Connection conn = null;
         PreparedStatement pstmt = null;
         ResultSet rs= null;
@@ -504,7 +504,7 @@ public class boardDBBean{
                 pstmt.setString(1, id);
                 pstmt.setInt(2,b_id);
                 pstmt.setString(3, status);
-                pstmt.setInt(4, r_info);
+                pstmt.setString(4, r_info);
                 pstmt.executeUpdate();
             }
 

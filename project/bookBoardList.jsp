@@ -69,7 +69,7 @@ if(count!=0){
                 <p class="card-text"><%=sdf.format(article_detail.getDate())%></p>
                 <p class="card-text">
                     <a href="reservationPage.jsp?book_name=<%=article.getBook_name()%>&b_id=<%=article.getB_id()%>">
-                    <button id="btn-r" onclick="return reservationDateCheck();">예약하기</button></a>
+                    <button id="btn-r">예약하기</button></a>
                 </p>
             </div>
           </div>

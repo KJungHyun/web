@@ -78,13 +78,14 @@ if(count!=0){
                     
                         <input name="book_name" type="hidden" value="<%=article.getBook_name()%>">
                         <input name="select" type="hidden" value="추가">
-                        <button type="submit" id="radius">추가</button>
+                        <button type="submit" id="radius" style="float: right; margin-bottom: 10px;">추가</button>
                     
                 <%}else{%>
                         <input name="book_name" type="hidden" value="<%=article.getBook_name()%>">
                         <input name="select" type="hidden" value="삭제">
-                        <button type="submit" id="radius" style="background-color: red;">삭제</button>
+                        <button type="submit" id="radius" style="background-color: red; float: right; margin-bottom: 10px;">삭제</button>
                 <%}%>
+                <p class="card-text" style="float: left;">책의 재고: </p>
                 </form>
                 </p>
             </div>

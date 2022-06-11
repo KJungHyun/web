@@ -85,25 +85,5 @@
         var selectNum = '<%=select%>';
         select.options[selectNum-1].selected=true;
     }
-
-    function reservationDateCheck(){
-        var start_date = new Date("<%=start_date%>");
-        var end_date = new Date("<%=end_date%>");
-        var now_date = new Date();
-        var status = "<%=status%>";
-        var check = false;
-
-        if(start_date<now_date && now_date<end_date){
-            if(status=="T"){
-                check=true;
-            }else{
-                alert("지금은 예약이 만료되었습니다.");
-            }
-        }else{
-            alert("지금은 예약 시간이 아닙니다.");
-        }
-        return check;
-
-    }
     
 </script>
