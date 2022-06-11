@@ -80,6 +80,8 @@
             </form>
         </div>
         <div id="y_container">
+            
+<% if(id.equals("root") || id=="root"){%>
             <table class="table table-striped" style="width: 700px; margin-left: auto; margin-right: auto; text-align: center;" >
                 <thead>
                     <tr style="text-align:center">
@@ -90,28 +92,29 @@
                         <td>추첨하기</td>
                     </tr>
                 </thead>
-                    <tbody>
-                        <td><%=r_info%></td>
-                        <td><%=reservationPro.getStartDate(r_info)%></td>
-                        <td><%=reservationPro.getEndDate(r_info)%></td>
-                        <td>
-                            <% if(reservationPro.getStatus(r_info).equals("T")){%>
-                                진행중
-                            <%}else{%>
-                                종료
-                            <%}%>
-                        </td>
-                        <td>
-                            <form method="post" action="roundPagePro.jsp">
-                                <input name="r_info" type="hidden" value="<%=r_info%>">
-                                <input name="start_date" type="hidden" value="<%=reservationPro.getStartDate(r_info)%>">
-                                <input name="end_date" type="hidden" value="<%=reservationPro.getEndDate(r_info)%>">
-                                <input id="status" name="status" type="hidden" value="<%=reservationPro.getStatus(r_info)%>">
-                                <button type="submit" onclick="return drawBtn();" id="radius">추첨하기</button>
-                            </form>
+                <tbody>
+                    <td><%=r_info%></td>
+                    <td><%=reservationPro.getStartDate(r_info)%></td>
+                    <td><%=reservationPro.getEndDate(r_info)%></td>
+                    <td>
+                        <% if(reservationPro.getStatus(r_info).equals("T")){%>
+                            진행중
+                        <%}else{%>
+                            종료
+                        <%}%>
                     </td>
-                    </tbody>
+                    <td>
+                        <form method="post" action="roundPagePro.jsp">
+                            <input name="r_info" type="hidden" value="<%=r_info%>">
+                            <input name="start_date" type="hidden" value="<%=reservationPro.getStartDate(r_info)%>">
+                            <input name="end_date" type="hidden" value="<%=reservationPro.getEndDate(r_info)%>">
+                            <input id="status" name="status" type="hidden" value="<%=reservationPro.getStatus(r_info)%>">
+                            <button type="submit" onclick="return drawBtn();" id="radius">추첨하기</button>
+                        </form>
+                </td>
+                </tbody>
             </table>
+<%}%>
             <table class="table table-striped">
                 <thead>
                     <tr style="text-align:center">
